@@ -143,7 +143,7 @@
 
     // in-page nav
     var sections = [["summary", "Summary"]];
-    if (ch.video) sections.push(["watch", "Watch"]);
+    if (ch.video || (ch.videos && ch.videos.length)) sections.push(["watch", "Watch"]);
     if (ch.sims && ch.sims.length) sections.push(["explore", "Explore"]);
     if (ch.quiz && ch.quiz.length) sections.push(["check", "Quiz"]);
     html += '<nav class="subnav" aria-label="Chapter sections">' + sections.map(function (s, i) {
@@ -192,17 +192,23 @@
     }
     html += "</section>";
 
-    // video
-    if (ch.video) {
-      html += '<section id="watch" class="block"><div class="block-head"><h2>Watch</h2></div>' +
+    // videos — a chapter can have `video: {…}` (one) or `videos: [{…}, {…}]` (several)
+    var vids = ch.videos || (ch.video ? [ch.video] : []);
+    if (vids.length) {
+      html += '<section id="watch" class="block"><div class="block-head"><h2>Watch</h2>' +
+        (vids.length > 1 ? '<span class="muted small">' + vids.length + " videos</span>" : "") + '</div><div class="videos' + (vids.length > 1 ? " multi" : "") + '">';
+      vids.forEach(function (v) {
         // Click-to-play thumbnail. The real player only loads on click (faster pages), and
         // YouTube needs the page to be served from a web address to play embeds (Error 153 otherwise).
-        '<div class="video"><button class="video-facade" data-yt="' + esc(ch.video.id) + '" aria-label="Play video: ' + esc(ch.video.title) + '">' +
-        '<img src="https://i.ytimg.com/vi/' + esc(ch.video.id) + '/hqdefault.jpg" alt="" loading="lazy">' +
-        '<span class="play" aria-hidden="true">▶</span></button></div>' +
-        '<p class="small muted">' + esc(ch.video.title) + ' · <a href="https://www.youtube.com/watch?v=' + esc(ch.video.id) + '" target="_blank" rel="noopener">Open on YouTube ↗</a></p>' +
-        (ch.video.think ? '<div class="think"><strong>While you watch:</strong> ' + fmt(ch.video.think) + "</div>" : "") +
-        "</section>";
+        html += '<div class="video-item">' + (v.label ? '<h3 class="video-label">' + fmt(v.label) + "</h3>" : "") +
+          '<div class="video"><button class="video-facade" data-yt="' + esc(v.id) + '" aria-label="Play video: ' + esc(v.title) + '">' +
+          '<img src="https://i.ytimg.com/vi/' + esc(v.id) + '/hqdefault.jpg" alt="" loading="lazy">' +
+          '<span class="play" aria-hidden="true">▶</span></button></div>' +
+          '<p class="small muted">' + esc(v.title) + ' · <a href="https://www.youtube.com/watch?v=' + esc(v.id) + '" target="_blank" rel="noopener">Open on YouTube ↗</a></p>' +
+          (v.think ? '<div class="think"><strong>While you watch:</strong> ' + fmt(v.think) + "</div>" : "") +
+          "</div>";
+      });
+      html += "</div></section>";
     }
 
     // simulations

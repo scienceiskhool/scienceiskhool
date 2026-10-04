@@ -226,3 +226,9 @@ td + td, th + th { border-left: 1px solid var(--line); }
 .vnav.prev { left: 12px; } .vnav.next { right: 12px; }
 .viewer-help { text-align: center; color: #cfd6d8; font-size: .8rem; margin: 6px 0 10px; }
 @media print { .sheets { display: none; } }
+
+/* several videos in one chapter */
+.videos { display: grid; gap: 22px; }
+.videos.multi { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.video-label { margin: 0 0 8px; font-size: 1rem; }
+.video-item .think { margin-bottom: 0; }

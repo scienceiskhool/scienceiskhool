@@ -536,8 +536,14 @@ window.COURSES["g1-science"] = {
       ["pH scale", "A scale from 0 to 14 showing how acidic or alkaline a solution is."],
       ["Residue / filtrate", "The solid left on filter paper / the liquid that passes through."]
     ],
-    video: { id: "A49VdFLNVNU", title: "Why do things float or sink? What is density?",
-      think: "A block has mass 30 g and volume 20 cm^3^. Will it float in water (density 1 g/cm^3^)?" },
+    videos: [
+      { label: "Density", id: "JWIhtSWhUrY", title: "What is Density? | Mass, Volume & Density (MAD GARDEN Science)",
+        think: "A block has mass 30 g and volume 20 cm^3^. Will it float in water (density 1 g/cm^3^)?" },
+      { label: "Solutions and suspensions", id: "Ye1Ux_8dm1A", title: "Lighthouse Lab – Solutions and Suspensions (Next Generation Science)",
+        think: "Name two ways to tell a solution from a suspension." },
+      { label: "Filtration and evaporation", id: "29Rd-Lly-fw", title: "Separation Techniques – Filtration, Evaporation, Crystallisation (Cognito)",
+        think: "Which part of a mixture is collected as the residue, and which as the filtrate?" }
+    ],
     sims: [
       { title: "Density", url: "https://phet.colorado.edu/sims/html/density/latest/density_en.html", embed: true,
         task: "Find the mass and volume of each block. Calculate its density. Predict whether it floats in water, then test it." },
