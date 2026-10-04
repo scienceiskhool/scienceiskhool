@@ -11,7 +11,7 @@ window.SITE = {
   /* Paste the Google Apps Script "Web app URL" here to switch on
      "Submit to teacher" for quizzes. Leave as "" to hide the button.
      See SETUP-GUIDE.md, Part 3. */
-  submitUrl: "",
+  submitUrl: "https://script.google.com/macros/s/AKfycbxCTjRCQzLlWXmmY-5R0p75WCmeFLzC9ZM3gNbGRXpcc_d9qHMXdyCn12B4dHpnrBWe/exec",
 
   /* Class options students pick from when submitting a quiz. */
   classes: ["1A", "1B", "1C", "1D", "1E", "2A", "2B", "2C", "2D", "2E", "3A", "3B", "3C", "3D", "3E", "4A", "4B", "4C", "4D", "4E", "Other"],
