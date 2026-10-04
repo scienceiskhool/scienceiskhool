@@ -14,7 +14,13 @@ window.SITE = {
   submitUrl: "https://script.google.com/macros/s/AKfycbxCTjRCQzLlWXmmY-5R0p75WCmeFLzC9ZM3gNbGRXpcc_d9qHMXdyCn12B4dHpnrBWe/exec",
 
   /* Class options students pick from when submitting a quiz. */
-  classes: ["1A", "1B", "1C", "1D", "1E", "2A", "2B", "2C", "2D", "2E", "3A", "3B", "3C", "3D", "3E", "4A", "4B", "4C", "4D", "4E", "Other"],
+  classes: [
+    "S1 Charity", "S1 Courage", "S1 Faith", "S1 Hope", "S1 Humility", "S1 Integrity", "S1 Love", "S1 Respect", "S1 Joy",
+    "S2 Charity", "S2 Courage", "S2 Faith", "S2 Hope", "S2 Humility", "S2 Integrity", "S2 Love", "S2 Respect", "S2 Joy",
+    "S3 Charity", "S3 Courage", "S3 Faith", "S3 Hope", "S3 Humility", "S3 Integrity", "S3 Love", "S3 Respect", "S3 Joy",
+    "S4 Charity", "S4 Courage", "S4 Faith", "S4 Hope", "S4 Humility", "S4 Integrity", "S4 Love", "S4 Respect", "S4 Joy",
+    "S5 Faith", "Other"
+  ],
 
   /* Levels -> courses. A course with `ready: false` shows as "Coming soon".
      `oldLink` (optional) sends students to the old Google Site meanwhile. */
