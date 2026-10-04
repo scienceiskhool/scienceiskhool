@@ -914,6 +914,8 @@ window.COURSES["g1-science"] = {
     video: { id: "SnH8yrRPhHk", title: "Key Stage 3 Science (Biology): Digestion",
       think: "Where does most chemical digestion and absorption happen?" },
     sims: [
+      { title: "Digestive System Gizmo", url: "https://gizmos.explorelearning.com/find-gizmos/launch-gizmo?resourceId=1050", embed: false, source: "ExploreLearning Gizmos",
+        task: "Feed the virtual digestive system different meals. Track where carbohydrates, proteins and fats are broken down, and where nutrients are absorbed. (Log in with your Gizmos account; without one you get 5 minutes a day.)" },
       { title: "The digestive system viewed from topology", url: "https://javalab.org/en/digestive_tract_en/", embed: false,
         task: "Follow a piece of food from the mouth to the anus. At which parts does chemical digestion happen?" }
     ],
