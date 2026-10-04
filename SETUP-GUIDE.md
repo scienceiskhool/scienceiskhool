@@ -43,7 +43,7 @@ Tip: if you prefer to keep your current address, add a button on your Google Sit
 5. On GitHub, open `data/site.js` and click the pencil icon. Paste the URL between the quotes in `submitUrl: ""`, then **Commit changes**.
 6. You can edit the class list in `classes: [...]` in the same file.
 
-Scores arrive in the Sheet with one tab per course. Each row records the class, register no., name, chapter, score, percentage and the questions the student got wrong. That last column is useful for planning remediation.
+Scores arrive in the Sheet with one tab per course, e.g. *LSS G1* or *Combined Chem*. Look for the new tabs along the bottom; *Sheet1* stays empty. The site shows "Sent!" either way, so check the Sheet (or **Executions** in Apps Script) if you're unsure whether a score arrived. Each row records the class, register no., name, chapter, score, percentage and the questions the student got wrong. That last column is useful for planning remediation.
 
 Note: students can type any name, and nothing checks who they are. Treat the scores as formative data, not graded assessment.
 
