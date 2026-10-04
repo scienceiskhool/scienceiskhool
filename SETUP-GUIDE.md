@@ -99,4 +99,3 @@ If something breaks after an edit, a comma or quote is usually missing. GitHub k
 - **Watch each video once on the live site.** If one says "Video unavailable" or "Playback on other websites has been disabled", its owner has blocked embedding. Swap it for another video.
 - **Video choices:** I picked well-known channels (Cognito, FuseSchool, Amoeba Sisters, PUB) but couldn't play them myself. Replace any you don't like, or any that school devices block.
 - **G1 Ch 2–5 (Forces, Energy, Electricity, Heat):** your Drive had no summary sheets for these, so they have text summaries only, written from the MOE G1 syllabus. Please check them against how you teach. You can add sheets later (see Part 4).
-- **Mole worked example on your Combined Sci and Pure Chem mole sheets:** the answer reads "30.8 g". With 0.2 mol × Mr 160 (2 × 56 + 3 × 16), the answer should be **32 g**. The website uses 32 g.
