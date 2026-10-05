@@ -18,6 +18,7 @@ window.COURSES["combined-chem"] = {
     id: "cc-01", num: 1, group: "I. Matter — Structures and Properties",
     title: "Experimental Chemistry",
     question: "How do chemists choose apparatus and separate mixtures?",
+    mascot: "assets/img/mascots/test-tube.png",
     images: [{ src: "assets/summaries/combined-chem/01-experimental-techniques.jpg", title: "Experimental Techniques" }, { src: "assets/summaries/combined-chem/02-separation-techniques.jpg", title: "Separation Techniques" }],
     objectives: [
       "Name apparatus for measuring time, temperature, mass and volume (burette, pipette, measuring cylinder, gas syringe)",
@@ -164,8 +165,12 @@ window.COURSES["combined-chem"] = {
       ["Isotopes", "Atoms of the same element with different numbers of neutrons."],
       ["Ion", "A charged particle formed when an atom loses or gains electrons."]
     ],
-    video: { id: "OTksau0_VoI", title: "Particle theory and states of matter",
-      think: "Why does the temperature stay constant while ice is melting?" },
+    videos: [
+      { label: "Particle theory", id: "OTksau0_VoI", title: "Particle theory and states of matter",
+        think: "Why does the temperature stay constant while ice is melting?" },
+      { label: "Atomic structure", id: "1xicKBfY4yM", title: "Atomic Structure (Science is Khool)",
+        think: "How many protons, neutrons and electrons are in a Mg^2+^ ion (proton number 12, nucleon number 24)?" }
+    ],
     sims: [
       { title: "States of Matter: Basics", url: "https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_en.html", embed: true,
         task: "Heat a solid until it melts and boils. Describe the particle arrangement and movement at each stage." },
@@ -250,7 +255,7 @@ window.COURSES["combined-chem"] = {
       ["Valence electrons", "Electrons in the outermost shell."],
       ["Alloy", "A mixture of a metal with one or more other elements."]
     ],
-    video: { id: "MdU44WeiLps", title: "GCSE Chemistry: Ionic bonding — formation",
+    video: { id: "cFS8cb7g8N0", title: "Chemical Bonding (Science is Khool)",
       think: "Draw the dot-and-cross diagram for magnesium chloride after watching." },
     sims: [
       { title: "Ionic Bond — NaCl", url: "https://javalab.org/en/nacl_ionic_bond_en/", embed: false,
@@ -293,6 +298,7 @@ window.COURSES["combined-chem"] = {
     id: "cc-04", num: 4, group: "II. Chemical Reactions",
     title: "Chemical Calculations",
     question: "How do chemists count particles they cannot see?",
+    mascot: "assets/img/mascots/titration.png",
     images: [{ src: "assets/summaries/combined-chem/09-formulas-equations.jpg", title: "Formulas and Equations" }, { src: "assets/summaries/combined-chem/11-mole-calculations.jpg", title: "Mole Calculations" }],
     objectives: [
       "Write formulae of ionic and covalent compounds",
@@ -345,8 +351,12 @@ window.COURSES["combined-chem"] = {
       ["Concentration", "Amount of solute per unit volume of solution."],
       ["Limiting reactant", "The reactant completely used up, which limits the amount of product."]
     ],
-    video: { id: "UxOC6PGKkmo", title: "How to use moles — Part 1 (FuseSchool)",
-      think: "How many moles are in 36 g of water (M~r~ = 18)?" },
+    videos: [
+      { label: "Formulas and equations", id: "kdNVk2zNbJk", title: "Formulas and Equations (Science is Khool)",
+        think: "Write the formula of aluminium sulfate, then balance: Al + O~2~ -> Al~2~O~3~." },
+      { label: "Chemical calculations", id: "WeCr4Gy-jPc", title: "Chemical Calculations (Science is Khool)",
+        think: "How many moles are in 11 g of CO~2~ (M~r~ = 44)?" }
+    ],
     sims: [
       { title: "Balancing Chemical Equations", url: "https://phet.colorado.edu/sims/html/balancing-chemical-equations/latest/balancing-chemical-equations_en.html", embed: true,
         task: "Complete the Game, level 1 and level 2. Can you get full stars without guessing?" },
@@ -388,6 +398,7 @@ window.COURSES["combined-chem"] = {
     id: "cc-05", num: 5, group: "II. Chemical Reactions",
     title: "Acid–Base Chemistry",
     question: "What makes a substance acidic or alkaline, and how do acids and bases react?",
+    mascot: "assets/img/mascots/basic.png",
     images: [{ src: "assets/summaries/combined-chem/07-acids-bases.jpg", title: "Acids & Bases" }],
     objectives: [
       "Define acids and alkalis in terms of H^+^ and OH^−^ ions; use pH and Universal Indicator",
@@ -437,7 +448,7 @@ window.COURSES["combined-chem"] = {
       ["Salt", "Compound formed when the H^+^ of an acid is replaced by a metal or ammonium ion."],
       ["Amphoteric oxide", "An oxide that reacts with both acids and alkalis."]
     ],
-    video: { id: "ckbsHM2igT0", title: "What is the pH scale? (FuseSchool)",
+    video: { id: "PbOxh1gHxy4", title: "Acids and Bases (Science is Khool)",
       think: "Which ion is present in a higher concentration in a solution of pH 2 than in pH 6?" },
     sims: [
       { title: "pH Scale", url: "https://phet.colorado.edu/sims/html/ph-scale/latest/ph-scale_en.html", embed: true,
@@ -478,6 +489,7 @@ window.COURSES["combined-chem"] = {
     id: "cc-06", num: 6, group: "II. Chemical Reactions",
     title: "Qualitative Analysis",
     question: "How can we identify an unknown substance from what we observe?",
+    mascot: "assets/img/mascots/colour-change.png",
     images: [{ src: "assets/summaries/combined-chem/08-qualitative-analysis.jpg", title: "Qualitative Analysis" }],
     objectives: [
       "Identify cations Al^3+^, NH~4~^+^, Ca^2+^, Cu^2+^, Fe^2+^, Fe^3+^, Zn^2+^ using NaOH(aq) and NH~3~(aq)",
@@ -574,6 +586,7 @@ window.COURSES["combined-chem"] = {
     id: "cc-07", num: 7, group: "II. Chemical Reactions",
     title: "Redox Chemistry",
     question: "What is happening when substances are oxidised and reduced?",
+    mascot: "assets/img/mascots/colour-change.png",
     images: [{ src: "assets/summaries/combined-chem/10-redox.jpg", title: "Redox" }],
     objectives: [
       "Define oxidation and reduction in terms of oxygen and hydrogen gain/loss",

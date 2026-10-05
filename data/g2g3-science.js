@@ -22,6 +22,7 @@ window.COURSES["g2g3-science"] = {
     id: "lss-01", num: 1, group: "The Scientific Endeavour",
     title: "The Scientific Endeavour",
     question: "How do we practise Science, and how do we stay safe doing it?",
+    mascot: "assets/img/mascots/boom.png",
     images: [{ src: IMG + "s1-01-scientific-method.jpg", title: "The Scientific Method" }, { src: IMG + "s1-02-lab-safety.jpg", title: "Lab Safety, Hazards & Instruments" }],
     objectives: [
       "Describe the steps of the scientific method",
@@ -306,6 +307,7 @@ window.COURSES["g2g3-science"] = {
     id: "lss-04", num: 4, group: "Diversity",
     title: "Separation Techniques",
     question: "How can we separate a mixture into its constituents?",
+    mascot: "assets/img/mascots/test-tube.png",
     images: [{ src: IMG + "s1-05-separation-techniques.jpg", title: "Diversity — Separation Techniques" }],
     objectives: [
       "Explain how mixtures are separated using differences in physical properties",
@@ -480,6 +482,7 @@ window.COURSES["g2g3-science"] = {
     id: "lss-06", num: 6, group: "Models",
     title: "Model of Cells",
     question: "What are the basic units of life, and how are they organised?",
+    mascot: "assets/img/mascots/cells.png",
     images: [{ src: IMG + "s1-07-cells.jpg", title: "Models — Cells" }],
     objectives: [
       "Identify the parts of typical plant and animal cells and state their functions",
@@ -907,6 +910,7 @@ window.COURSES["g2g3-science"] = {
     id: "lss-11", num: 11, group: "Interactions",
     title: "Chemical Changes",
     question: "How can we tell when a new substance is formed?",
+    mascot: "assets/img/mascots/colour-change.png",
     images: [{ src: IMG + "s2-04-chemical-changes.jpg", title: "Interactions — Chemical Changes" }],
     objectives: [
       "Distinguish physical and chemical changes",

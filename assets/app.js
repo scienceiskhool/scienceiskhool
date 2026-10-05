@@ -49,12 +49,12 @@
   }
   var COLOURS = ["teal", "orange", "yellow", "pink"];
   function colourOf(c) { return COLOURS.indexOf(c && c.color) !== -1 ? c.color : "teal"; }
-  function mascot(cls) { return SITE.mascot ? '<img class="mascot ' + (cls || "") + '" src="' + esc(SITE.mascot) + '" alt="">' : ""; }
+  function mascot(src, cls) { src = src || SITE.mascot; return src ? '<img class="mascot ' + (cls || "") + '" src="' + esc(src) + '" alt="">' : ""; }
   function hero(opts) {
     return '<section class="hero ' + (opts.cls || "") + '" style="--hero:' + (opts.bg || "var(--pink)") + '"><div class="hero-text">' +
       (opts.eyebrow ? '<span class="eyebrow">' + esc(opts.eyebrow) + "</span>" : "") +
       "<h1>" + opts.title + "</h1>" + (opts.sub ? "<p" + (opts.subCls ? ' class="' + opts.subCls + '"' : "") + ">" + opts.sub + "</p>" : "") +
-      (opts.extra || "") + "</div>" + mascot() + "</section>";
+      (opts.extra || "") + "</div>" + mascot(opts.mascot, opts.mascot ? "pose" : "") + "</section>";
   }
   function best(chId) { return store("best:" + chId); }
   function setTitle(t) { document.title = t ? t + " · " + SITE.title : SITE.title; }
@@ -139,7 +139,7 @@
 
     var html = crumbs([[c.short || c.name, "#/course/" + c.id], ["Ch " + ch.num + " · " + ch.title]]);
     html += hero({ cls: "small-hero", eyebrow: (c.short || "") + " · Chapter " + ch.num, title: esc(ch.title),
-      sub: ch.question ? esc(ch.question) : "", subCls: "inquiry" });
+      sub: ch.question ? esc(ch.question) : "", subCls: "inquiry", mascot: ch.mascot });
 
     // in-page nav
     var sections = [["summary", "Summary"]];
@@ -406,7 +406,7 @@
       var msg = pct === 100 ? "Perfect! 🎉" : pct >= 75 ? "Well done — review the ones you missed." : pct >= 50 ? "Good try — re-read the summary, then try again." : "Go through the summary and video once more, then retry.";
       var res = root.querySelector(".quiz-result");
       res.hidden = false;
-      var h = '<div class="score">' + (SITE.mascot ? '<img src="' + esc(SITE.mascot) + '" alt="">' : "") + '<span class="big">' + score + "/" + total + "</span><span><strong>" + msg + "</strong></span></div>" +
+      var h = '<div class="score">' + ((ch.mascot || SITE.mascot) ? '<img src="' + esc(ch.mascot || SITE.mascot) + '" alt="">' : "") + '<span class="big">' + score + "/" + total + "</span><span><strong>" + msg + "</strong></span></div>" +
         '<div class="row"><button class="btn ghost" data-retry>Try again (new order)</button></div>';
       if (SITE.submitUrl) {
         h += '<form class="submit-form"><h3>Submit to teacher</h3><div class="fields">' +

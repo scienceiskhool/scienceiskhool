@@ -23,6 +23,7 @@ window.COURSES["pure-chem"] = {
     id: "pc-01", num: 1, group: "I. Matter — Structures and Properties",
     title: "Experimental Chemistry",
     question: "How do chemists measure, collect, dry, separate and purify substances?",
+    mascot: "assets/img/mascots/test-tube.png",
     images: [img("01-experimental-techniques.jpg", "Experimental Techniques"), img("07-separation-techniques.jpg", "Separation Techniques"), img("25-practical.jpg", "Practical Skills")],
     objectives: [
       "Name apparatus for measuring time, temperature, mass and volume",
@@ -176,8 +177,12 @@ window.COURSES["pure-chem"] = {
       ["Isotopes", "Atoms of the same element with different numbers of neutrons."],
       ["Ion", "A charged particle formed when an atom gains or loses electrons."]
     ],
-    video: { id: "OTksau0_VoI", title: "Particle theory and states of matter",
-      think: "On a cooling curve, why does the temperature stay constant while a liquid freezes?" },
+    videos: [
+      { label: "Particle theory", id: "OTksau0_VoI", title: "Particle theory and states of matter",
+        think: "Why does the temperature stay constant while ice is melting?" },
+      { label: "Atomic structure", id: "1xicKBfY4yM", title: "Atomic Structure (Science is Khool)",
+        think: "How many protons, neutrons and electrons are in a Mg^2+^ ion (proton number 12, nucleon number 24)?" }
+    ],
     sims: [
       { title: "States of Matter: Basics", url: phet("states-of-matter-basics"), embed: true,
         task: "Heat and cool the substance. Link what the particles do to the flat parts of a heating curve." },
@@ -269,8 +274,8 @@ window.COURSES["pure-chem"] = {
       ["Delocalised electrons", "Electrons free to move throughout a structure."],
       ["Alloy", "A mixture of a metal with another element."]
     ],
-    video: { id: "RVV8pncaA7A", title: "GCSE Chemistry: Diamond & graphite — structure",
-      think: "Why does graphite conduct electricity but diamond does not?" },
+    video: { id: "cFS8cb7g8N0", title: "Chemical Bonding (Science is Khool)",
+      think: "Draw the dot-and-cross diagram for magnesium chloride after watching." },
     sims: [
       { title: "Ionic Bond — NaCl", url: "https://javalab.org/en/nacl_ionic_bond_en/", embed: false,
         task: "Describe the electron transfer and the charges of the ions formed." },
@@ -315,6 +320,7 @@ window.COURSES["pure-chem"] = {
     id: "pc-04", num: 4, group: "II. Chemical Reactions",
     title: "Chemical Calculations",
     question: "How do chemists use the mole to predict how much reacts and forms?",
+    mascot: "assets/img/mascots/titration.png",
     images: [img("11-formulas-equations.jpg", "Formulas and Equations"), img("12-mole-calculations.jpg", "Mole Calculations")],
     objectives: [
       "Write formulae and balanced equations, including ionic equations, with state symbols",
@@ -360,8 +366,12 @@ window.COURSES["pure-chem"] = {
       ["% yield", "Actual yield ÷ theoretical yield × 100%."],
       ["Molar volume", "24 dm^3^ per mole of any gas at r.t.p."]
     ],
-    video: { id: "UxOC6PGKkmo", title: "How to use moles — Part 1 (FuseSchool)",
-      think: "How many moles of CO~2~ are in 11 g? (M~r~ = 44)" },
+    videos: [
+      { label: "Formulas and equations", id: "kdNVk2zNbJk", title: "Formulas and Equations (Science is Khool)",
+        think: "Write the formula of aluminium sulfate, then balance: Al + O~2~ -> Al~2~O~3~." },
+      { label: "Chemical calculations", id: "WeCr4Gy-jPc", title: "Chemical Calculations (Science is Khool)",
+        think: "How many moles are in 11 g of CO~2~ (M~r~ = 44)?" }
+    ],
     sims: [
       { title: "Balancing Chemical Equations", url: phet("balancing-chemical-equations"), embed: true, task: "Complete the game at level 3." },
       { title: "Reactants, Products and Leftovers", url: phet("reactants-products-and-leftovers"), embed: true, task: "Predict the limiting reactant and leftovers before checking." },
@@ -403,6 +413,7 @@ window.COURSES["pure-chem"] = {
     id: "pc-05", num: 5, group: "II. Chemical Reactions",
     title: "Acid–Base Chemistry",
     question: "How do acids and bases behave, and how do we make salts?",
+    mascot: "assets/img/mascots/basic.png",
     images: [img("08-acids-bases-1.jpg", "Acids & Bases 1"), img("09-acids-bases-2.jpg", "Acids & Bases 2 — pH"), img("10-salt-preparation.jpg", "Salt Preparation")],
     objectives: [
       "Describe acids and alkalis in terms of H^+^ and OH^−^ ions and the pH scale",
@@ -467,8 +478,8 @@ window.COURSES["pure-chem"] = {
       ["Precipitation", "Forming an insoluble solid by mixing two solutions."],
       ["Reversible reaction", "A reaction that can go both forwards and backwards."]
     ],
-    video: { id: "xQ9EkMx7grM", title: "GCSE Chemistry: Making salts",
-      think: "Which method would you use to make silver chloride? Zinc sulfate? Sodium nitrate?" },
+    video: { id: "PbOxh1gHxy4", title: "Acids and Bases (Science is Khool)",
+      think: "Which ion is present in a higher concentration in a solution of pH 2 than in pH 6?" },
     sims: [
       { title: "pH Scale", url: phet("ph-scale"), embed: true, task: "Dilute an acid ten times. How does the pH change?" },
       { title: "Acid–Base Solutions", url: phet("acid-base-solutions"), embed: true, task: "Compare a strong and a weak acid at the same concentration. Which has more ions? Which has the lower pH?" },
@@ -510,6 +521,7 @@ window.COURSES["pure-chem"] = {
     id: "pc-06", num: 6, group: "II. Chemical Reactions",
     title: "Qualitative Analysis",
     question: "How can we identify unknown ions and gases?",
+    mascot: "assets/img/mascots/colour-change.png",
     images: [img("15-qualitative-analysis.jpg", "Qualitative Analysis")],
     objectives: [
       "Identify cations Al^3+^, NH~4~^+^, Ca^2+^, Cu^2+^, Fe^2+^, Fe^3+^, Zn^2+^ using NaOH(aq) and NH~3~(aq)",
@@ -585,6 +597,7 @@ window.COURSES["pure-chem"] = {
     id: "pc-07", num: 7, group: "II. Chemical Reactions",
     title: "Redox Chemistry & Electrochemistry",
     question: "How are electrons transferred in redox reactions, electrolysis and cells?",
+    mascot: "assets/img/mascots/colour-change.png",
     images: [img("13-redox.jpg", "Redox"), img("14-electrochemistry.jpg", "Electrochemistry")],
     objectives: [
       "Define and identify oxidation and reduction (oxygen, hydrogen, electrons, oxidation state)",
@@ -853,6 +866,7 @@ window.COURSES["pure-chem"] = {
     id: "pc-10", num: 10, group: "II. Chemical Reactions",
     title: "Rate of Reactions",
     question: "What controls how fast a reaction goes?",
+    mascot: "assets/img/mascots/catalyst.png",
     images: [img("16-rate-of-reaction.jpg", "Rate of Reaction")],
     objectives: [
       "Explain the effects of concentration, pressure, particle size and temperature using collision theory",

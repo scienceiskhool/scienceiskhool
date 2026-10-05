@@ -232,3 +232,11 @@ td + td, th + th { border-left: 1px solid var(--line); }
 .videos.multi { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 .video-label { margin: 0 0 8px; font-size: 1rem; }
 .video-item .think { margin-bottom: 0; }
+
+/* chapter-specific mascot poses (wider drawings with speech bubbles) */
+.hero.small-hero .mascot.pose { width: auto; height: 230px; max-width: 280px; max-height: none; }
+.score img { width: auto; height: 120px; }
+@media (max-width: 600px) {
+  .hero.small-hero .mascot.pose { height: 120px; max-width: 150px; margin-top: -6px; }
+  .score img { height: 90px; }
+}

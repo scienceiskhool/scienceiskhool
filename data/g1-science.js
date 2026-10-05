@@ -20,6 +20,7 @@ window.COURSES["g1-science"] = {
     id: "g1-01", num: 1, group: "Introduction",
     title: "Laboratory Measurements & Procedures",
     question: "Why is it important to observe laboratory safety rules? Why is measurement important?",
+    mascot: "assets/img/mascots/boom.png",
     images: [{ src: "assets/summaries/g1-science/01-lab-measurements.jpg", title: "Laboratory Measurements & Procedures" }],
     objectives: [
       "Follow lab safety rules and explain why each one matters",
@@ -474,6 +475,7 @@ window.COURSES["g1-science"] = {
     id: "g1-06", num: 6, group: "Our Environment",
     title: "Matter",
     question: "How can matter be classified?",
+    mascot: "assets/img/mascots/basic.png",
     images: [{ src: "assets/summaries/g1-science/02-matter.jpg", title: "Matter" }],
     objectives: [
       "Describe changes of state: melting, boiling/evaporation, condensation, freezing",
@@ -760,6 +762,7 @@ window.COURSES["g1-science"] = {
     id: "g1-09", num: 9, group: "Our Body and Health",
     title: "Cells",
     question: "What are the basic building blocks of living things?",
+    mascot: "assets/img/mascots/cells.png",
     images: [{ src: "assets/summaries/g1-science/05-cells.jpg", title: "Cells" }],
     objectives: [
       "State that all living things are made of cells — the basic unit of life",
@@ -911,7 +914,7 @@ window.COURSES["g1-science"] = {
       ["Absorption", "Movement of digested food into the blood, mainly in the small intestine."],
       ["Respiration", "Release of energy in cells: digested food + oxygen -> carbon dioxide + water."]
     ],
-    video: { id: "SnH8yrRPhHk", title: "Key Stage 3 Science (Biology): Digestion",
+    video: { id: "OKcIuxXXPrs", title: "Getting Energy and Nutrients from Food (Science is Khool)",
       think: "Where does most chemical digestion and absorption happen?" },
     sims: [
       { title: "Digestive System Gizmo", url: "https://gizmos.explorelearning.com/find-gizmos/launch-gizmo?resourceId=1050", embed: false, source: "ExploreLearning Gizmos",
