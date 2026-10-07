@@ -107,7 +107,7 @@
       if (g.name) html += '<h2 class="group-title">' + esc(g.name) + "</h2>";
       html += '<div class="chapter-grid">';
       g.items.forEach(function (ch) {
-        var b = best(ch.id);
+        var b = best(ch.id) || (ch.links && ch.links.length ? best(ch.links[0].chapter) : null);
         var col = COLOURS[(c.chapters.indexOf(ch)) % 4];
         html += '<a class="sticker chapter-card c-' + col + '" href="#/chapter/' + esc(ch.id) + '">' +
           '<span class="ch-num">' + esc(ch.num) + "</span>" +
@@ -138,7 +138,7 @@
     var prev = c.chapters[idx - 1], next = c.chapters[idx + 1];
 
     var html = crumbs([[c.short || c.name, "#/course/" + c.id], ["Ch " + ch.num + " · " + ch.title]]);
-    html += hero({ cls: "small-hero", eyebrow: (c.short || "") + " · Chapter " + ch.num, title: esc(ch.title),
+    html += hero({ cls: "small-hero", eyebrow: ch.eyebrow || ((c.short || "") + " · " + (c.unitLabel || "Chapter") + " " + ch.num), title: esc(ch.title),
       sub: ch.question ? esc(ch.question) : "", subCls: "inquiry", mascot: ch.mascot });
 
     // in-page nav
@@ -161,6 +161,16 @@
           '<figcaption><span>' + esc(im.title || "Summary sheet") + '</span>' +
           '<a class="btn small sun" href="' + esc(im.src) + '" download>⬇ Download</a></figcaption></figure>';
       }).join("") + "</div>";
+    }
+    if (ch.links && ch.links.length) {
+      html += '<div class="study-links"><h3>' + esc(ch.linksTitle || "Study these on the site") + '</h3><div class="link-cards">' + ch.links.map(function (l) {
+        var f = findChapter(l.chapter);
+        if (!f) return "";
+        var b = best(l.chapter);
+        return '<a class="link-card" href="#/chapter/' + esc(l.chapter) + '"><span class="tag">' + esc(f.course.short) + " · Ch " + esc(f.chapter.num) + "</span>" +
+          "<strong>" + esc(f.chapter.title) + "</strong>" + (l.note ? '<span class="small">' + fmt(l.note) + "</span>" : "") +
+          '<span class="small link-status">' + (b ? "Quiz done: " + b.score + "/" + b.total + " ✓" : "Summary · video · quiz →") + "</span></a>";
+      }).join("") + "</div></div>";
     }
     if (ch.objectives && ch.objectives.length) {
       html += '<div class="objectives"><h3>By the end of this chapter, I can…</h3><ul>' +
@@ -365,7 +375,7 @@
     // Shuffle question order and option order every attempt.
     var qs = shuffle(ch.quiz).map(function (q) {
       var order = shuffle(q.options.map(function (_, i) { return i; }));
-      return { q: q.q, options: order.map(function (i) { return q.options[i]; }), answer: order.indexOf(q.answer), explain: q.explain, picked: null };
+      return { q: q.q, options: order.map(function (i) { return q.options[i]; }), answer: order.indexOf(q.answer), explain: q.explain, topic: q.topic, picked: null };
     });
     var html = '<ol class="quiz">';
     qs.forEach(function (q, qi) {
@@ -408,6 +418,22 @@
       res.hidden = false;
       var h = '<div class="score">' + ((ch.mascot || SITE.mascot) ? '<img src="' + esc(ch.mascot || SITE.mascot) + '" alt="">' : "") + '<span class="big">' + score + "/" + total + "</span><span><strong>" + msg + "</strong></span></div>" +
         '<div class="row"><button class="btn ghost" data-retry>Try again (new order)</button></div>';
+      var weak = [];
+      if (ch.diagnostic) {
+        // Diagnostic: score each bridging unit separately and point students to what to study.
+        var units = course.chapters.filter(function (u) { return u.id !== ch.id; });
+        h += '<div class="diag"><h3>Your bridging plan</h3><ul>' + units.map(function (u) {
+          var mine = qs.filter(function (x) { return x.topic === u.id; });
+          if (!mine.length) return "";
+          var right = mine.filter(function (x) { return x.picked === x.answer; }).length;
+          var ok = right === mine.length;
+          if (!ok) weak.push(u.title);
+          return '<li class="' + (ok ? "ok" : "todo") + '"><span class="diag-mark">' + (ok ? "✓" : "!") + "</span>" +
+            '<span class="diag-name"><strong>' + esc(u.title) + '</strong><span class="small">' + right + "/" + mine.length + " correct" + (u.priority ? " · " + esc(u.priority) : "") + "</span></span>" +
+            (ok ? '<span class="small">Secure</span>' : '<a class="btn small" href="#/chapter/' + esc(u.id) + '">Study this →</a>') + "</li>";
+        }).join("") + "</ul>" +
+        (weak.length ? '<p class="small">Work through the units marked <strong>!</strong> in order, then retake this quiz.</p>' : '<p class="small">You\'re ready for S2 G2 Science! 🎉</p>') + "</div>";
+      }
       if (SITE.submitUrl) {
         h += '<form class="submit-form"><h3>Submit to teacher</h3><div class="fields">' +
           '<label>Name<input name="name" required maxlength="60" autocomplete="name"></label>' +
@@ -434,7 +460,8 @@
             name: form.name.value.trim(), cls: form.cls.value, reg: form.reg.value.trim(),
             course: course.short || course.name, chapter: "Ch " + ch.num + " " + ch.title,
             score: score, total: total,
-            wrong: qs.filter(function (x) { return x.picked !== x.answer; }).map(function (x) { return x.q; }).join(" | ")
+            wrong: ch.diagnostic ? (weak.length ? "NEEDS: " + weak.join("; ") : "All secure") :
+              qs.filter(function (x) { return x.picked !== x.answer; }).map(function (x) { return x.q; }).join(" | ")
           };
           store("student", { name: payload.name, cls: payload.cls, reg: payload.reg });
           var msgEl = form.querySelector(".form-msg");

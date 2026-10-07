@@ -240,3 +240,20 @@ td + td, th + th { border-left: 1px solid var(--line); }
   .hero.small-hero .mascot.pose { height: 120px; max-width: 150px; margin-top: -6px; }
   .score img { height: 90px; }
 }
+
+/* bridging course: study links + diagnostic plan */
+.study-links { margin: 6px 0 18px; }
+.study-links h3 { margin-bottom: 10px; }
+.link-cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.link-card { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border: var(--outline); border-radius: 16px; background: var(--yellow-tint); color: var(--ink); text-decoration: none; box-shadow: 3px 3px 0 var(--ink); transition: transform .1s, box-shadow .1s; }
+.link-card:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); background: var(--yellow); }
+.link-card .link-status { color: var(--teal-ink); font-weight: 700; }
+.diag { background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: 14px 16px; margin-top: 14px; }
+.diag ul { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 8px; }
+.diag li { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 12px; }
+.diag li.ok { background: var(--teal-tint); }
+.diag li.todo { background: var(--orange-tint); }
+.diag-mark { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; font-weight: 800; background: #fff; }
+.diag li.ok .diag-mark { background: var(--teal); color: #fff; }
+.diag li.todo .diag-mark { background: var(--orange); }
+.diag-name { flex: 1; display: flex; flex-direction: column; min-width: 0; }

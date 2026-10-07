@@ -29,7 +29,8 @@ window.SITE = {
       name: "Lower Secondary",
       courses: [
         { id: "g1-science", ready: true },
-        { id: "g2g3-science", ready: true }
+        { id: "g2g3-science", ready: true },
+        { id: "bridge-g1g2", ready: true }
       ]
     },
     {
