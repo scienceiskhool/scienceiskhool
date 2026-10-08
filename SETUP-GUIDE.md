@@ -43,7 +43,7 @@ Tip: if you prefer to keep your current address, add a button on your Google Sit
 5. On GitHub, open `data/site.js` and click the pencil icon. Paste the URL between the quotes in `submitUrl: ""`, then **Commit changes**.
 6. You can edit the class list in `classes: [...]` in the same file.
 
-Scores arrive in the Sheet with one tab per course, e.g. *LSS G1* or *Combined Chem*. Look for the new tabs along the bottom; *Sheet1* stays empty. The site shows "Sent!" either way, so check the Sheet (or **Executions** in Apps Script) if you're unsure whether a score arrived. Each row records the class, register no., name, chapter, score, percentage and the questions the student got wrong. That last column is useful for planning remediation.
+Scores arrive in the Sheet with one tab per course. Each row records the class, register no., name, chapter, score, percentage and the questions the student got wrong. That last column is useful for planning remediation.
 
 Note: students can type any name, and nothing checks who they are. Treat the scores as formative data, not graded assessment.
 
@@ -93,6 +93,12 @@ Students can tap a sheet to zoom (pinch or scroll), drag to move around, and dow
 4. In `site.js`, add `{ id: "biology", ready: true }` under the right level.
 
 If something breaks after an edit, a comma or quote is usually missing. GitHub keeps every version, so you can always roll back under **History**.
+
+### Recall warm-ups and G1 spelling
+
+- **Recall questions** (3 at the start of each chapter) are in `data/recall.js`, listed by chapter id (e.g. `"g1-06"`, `"lss-04"`). Combined Chem and Pure Chem share one set (`CHEM["05"]` is used for both cc-05 and pc-05). Write the correct answer first; the site shuffles the options. Recall is not graded and nothing is sent to the Sheet.
+- **G1 spelling** is in `data/spelling.js`: `S("term", "clue")`. Add accepted alternatives as a third item, e.g. `S("sulfur dioxide", "…", ["sulphur dioxide"])`. Checking ignores capitals and extra spaces.
+- The **G1 end-of-chapter test** draws 5 MCQs at random from each chapter's quiz bank, followed by the 5 spelling items (score out of 10). To change how many MCQs are drawn, edit `quizSize: 5` near the top of `data/g1-science.js`. To hide the "Starts with …" hint, add `spellHint: false` next to it.
 
 ## 5. Before sharing with students
 

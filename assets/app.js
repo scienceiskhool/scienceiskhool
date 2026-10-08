@@ -142,13 +142,24 @@
       sub: ch.question ? esc(ch.question) : "", subCls: "inquiry", mascot: ch.mascot });
 
     // in-page nav
+    // Extra question sets live in data/recall.js and data/spelling.js, keyed by chapter id.
+    var recall = ch.recall || (window.RECALL || {})[ch.id] || [];
+    var spelling = ch.spelling || (window.SPELLING || {})[ch.id] || [];
     var sections = [["summary", "Summary"]];
+    if (recall.length) sections.unshift(["recall", "Recall"]);
     if (ch.video || (ch.videos && ch.videos.length)) sections.push(["watch", "Watch"]);
     if (ch.sims && ch.sims.length) sections.push(["explore", "Explore"]);
     if (ch.quiz && ch.quiz.length) sections.push(["check", "Quiz"]);
     html += '<nav class="subnav" aria-label="Chapter sections">' + sections.map(function (s, i) {
       return '<a href="#" data-jump="' + s[0] + '"><span>' + (i + 1) + "</span>" + s[1] + "</a>";
     }).join("") + "</nav>";
+
+    // recall: quick warm-up on prior knowledge (not graded, not sent)
+    if (recall.length) {
+      html += '<section id="recall" class="block recall"><div class="block-head"><h2>Recall: what do you remember?</h2>' +
+        '<span class="muted small">' + recall.length + ' quick questions · not graded</span></div>' +
+        '<p class="small muted">Tap an answer to check. These link what you already know to this chapter.</p><div id="recall-q"></div></section>';
+    }
 
     // summary
     html += '<section id="summary" class="block"><div class="block-head"><h2>Summary</h2>' +
@@ -239,8 +250,10 @@
 
     // quiz
     if (ch.quiz && ch.quiz.length) {
-      html += '<section id="check" class="block"><div class="block-head"><h2>End-of-chapter quiz</h2>' +
-        '<span class="muted small">' + ch.quiz.length + " questions</span></div><div id=\"quiz\"></div></section>";
+      var nq = quizSize(c, ch);
+      html += '<section id="check" class="block"><div class="block-head"><h2>' + (spelling.length ? "End-of-chapter test" : "End-of-chapter quiz") + '</h2>' +
+        '<span class="muted small">' + (spelling.length ? nq + " MCQs + " + Math.min(5, spelling.length) + " spelling" : nq + " questions") +
+        "</span></div><div id=\"quiz\"></div></section>";
     }
 
     html += '<nav class="pager">' +
@@ -286,7 +299,8 @@
         box.classList.add("loaded");
       });
     });
-    if (ch.quiz && ch.quiz.length) renderQuiz(document.getElementById("quiz"), c, ch);
+    if (recall.length) renderRecall(document.getElementById("recall-q"), recall);
+    if (ch.quiz && ch.quiz.length) renderQuiz(document.getElementById("quiz"), c, ch, spelling);
   }
 
   /* ---------- zoomable image viewer ---------- */
@@ -371,29 +385,38 @@
   }
 
   /* ---------- quiz ---------- */
-  function renderQuiz(root, course, ch) {
-    // Shuffle question order and option order every attempt.
-    var qs = shuffle(ch.quiz).map(function (q) {
+  // Number of MCQs drawn from the chapter's bank each attempt (all of them unless quizSize is set).
+  function quizSize(course, ch) {
+    var n = ch.quizSize || course.quizSize || ch.quiz.length;
+    return Math.min(n, ch.quiz.length);
+  }
+
+  // Shuffle question order and option order every attempt.
+  function prepMcq(list) {
+    return shuffle(list).map(function (q) {
       var order = shuffle(q.options.map(function (_, i) { return i; }));
       return { q: q.q, options: order.map(function (i) { return q.options[i]; }), answer: order.indexOf(q.answer), explain: q.explain, topic: q.topic, picked: null };
     });
-    var html = '<ol class="quiz">';
-    qs.forEach(function (q, qi) {
-      html += '<li class="q" data-q="' + qi + '"><p class="q-text">' + fmt(q.q) + '</p><div class="opts">' +
+  }
+
+  function mcqHtml(qs) {
+    return '<ol class="quiz">' + qs.map(function (q, qi) {
+      return '<li class="q" data-q="' + qi + '"><p class="q-text">' + fmt(q.q) + '</p><div class="opts">' +
         q.options.map(function (o, oi) {
           return '<button class="opt" data-q="' + qi + '" data-o="' + oi + '"><span class="letter">' + "ABCD"[oi] + "</span><span>" + fmt(o) + "</span></button>";
         }).join("") + '</div><div class="feedback" hidden></div></li>';
-    });
-    html += '</ol><div class="quiz-result" hidden></div>';
-    root.innerHTML = html;
+    }).join("") + "</ol>";
+  }
 
+  // Tap-to-answer: lock the question, mark right/wrong, show the explanation.
+  function bindMcq(root, qs, onAnswer) {
     root.querySelectorAll(".opt").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var qi = +btn.getAttribute("data-q"), oi = +btn.getAttribute("data-o");
         var q = qs[qi];
         if (q.picked !== null) return;
         q.picked = oi;
-        var li = root.querySelector('.q[data-q="' + qi + '"]');
+        var li = btn.closest(".q");
         li.querySelectorAll(".opt").forEach(function (b, i) {
           b.disabled = true;
           if (i === q.answer) b.classList.add("correct");
@@ -403,13 +426,84 @@
         fb.hidden = false;
         fb.className = "feedback " + (oi === q.answer ? "good" : "bad");
         fb.innerHTML = "<strong>" + (oi === q.answer ? "Correct!" : "Not quite.") + "</strong> " + fmt(q.explain || "");
-        if (qs.every(function (x) { return x.picked !== null; })) finish();
+        onAnswer();
       });
+    });
+  }
+
+  /* ---------- recall (prior knowledge warm-up) ---------- */
+  function renderRecall(root, list) {
+    var qs = prepMcq(list);
+    root.innerHTML = mcqHtml(qs) + '<div class="recall-done" hidden></div>';
+    bindMcq(root, qs, function () {
+      if (!qs.every(function (x) { return x.picked !== null; })) return;
+      var right = qs.filter(function (x) { return x.picked === x.answer; }).length;
+      var box = root.querySelector(".recall-done");
+      box.hidden = false;
+      box.innerHTML = "<strong>" + right + "/" + qs.length + " remembered.</strong> " +
+        (right === qs.length ? "Great start! " : "No worries — this chapter builds on these ideas. ") +
+        '<button class="btn small" data-again>Try again</button> <a class="btn small sun" href="#" data-go>Start the summary ↓</a>';
+      box.querySelector("[data-again]").addEventListener("click", function () { renderRecall(root, list); });
+      box.querySelector("[data-go]").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.getElementById("summary").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  }
+
+  /* ---------- spelling ---------- */
+  function normSpell(t) {
+    return String(t || "").toLowerCase().replace(/[‐-―-]/g, " ").replace(/[.’']/g, "").replace(/\s+/g, " ").trim();
+  }
+
+  function renderQuiz(root, course, ch, spelling) {
+    spelling = spelling || [];
+    var qs = prepMcq(shuffle(ch.quiz).slice(0, quizSize(course, ch)));
+    var sp = shuffle(spelling).slice(0, 5).map(function (s) { return { term: s.term, clue: s.clue, alt: s.alt || [], typed: null, ok: false }; });
+    var hint = course.spellHint !== false;
+    var html = (sp.length ? '<h3 class="part">Part A · Multiple choice</h3>' : "") + mcqHtml(qs);
+    if (sp.length) {
+      html += '<h3 class="part">Part B · Spelling</h3><p class="small muted">Read the clue and type the key term. Spelling counts! Press Enter or tap Check.</p>' +
+        '<ol class="quiz spell" style="counter-reset: q ' + qs.length + '">' + sp.map(function (s, si) {
+          var words = s.term.trim().split(/\s+/).length;
+          return '<li class="q" data-s="' + si + '"><p class="q-text">' + fmt(s.clue) + "</p>" +
+            (hint ? '<p class="small muted spell-hint">Starts with “' + esc(s.term.charAt(0).toUpperCase()) + "”" + (words > 1 ? " · " + words + " words" : "") + "</p>" : "") +
+            '<div class="spell-row"><input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40" aria-label="Type the key term" placeholder="Type the key term">' +
+            '<button class="btn small" data-check="' + si + '">Check</button></div><div class="feedback" hidden></div></li>';
+        }).join("") + "</ol>";
+    }
+    html += '<div class="quiz-result" hidden></div>';
+    root.innerHTML = html;
+
+    function allDone() {
+      return qs.every(function (x) { return x.picked !== null; }) && sp.every(function (x) { return x.typed !== null; });
+    }
+    bindMcq(root, qs, function () { if (allDone()) finish(); });
+
+    root.querySelectorAll("[data-check]").forEach(function (btn) {
+      var li = btn.closest(".q"), input = li.querySelector("input"), s = sp[+btn.getAttribute("data-check")];
+      function check() {
+        if (s.typed !== null) return;
+        var v = input.value.trim();
+        if (!v) { input.focus(); return; }
+        s.typed = v;
+        s.ok = [s.term].concat(s.alt).some(function (t) { return normSpell(t) === normSpell(v); });
+        input.disabled = true; btn.disabled = true;
+        input.classList.add(s.ok ? "ok" : "no");
+        var fb = li.querySelector(".feedback");
+        fb.hidden = false;
+        fb.className = "feedback " + (s.ok ? "good" : "bad");
+        fb.innerHTML = s.ok ? "<strong>Correct!</strong> " + esc(s.term) :
+          "<strong>Not quite.</strong> The answer is <strong>" + esc(s.term) + "</strong> — you typed ‘" + esc(v) + "’.";
+        if (allDone()) finish();
+      }
+      btn.addEventListener("click", check);
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); check(); } });
     });
 
     function finish() {
-      var score = qs.filter(function (x) { return x.picked === x.answer; }).length;
-      var total = qs.length;
+      var score = qs.filter(function (x) { return x.picked === x.answer; }).length + sp.filter(function (x) { return x.ok; }).length;
+      var total = qs.length + sp.length;
       var prevBest = best(ch.id);
       if (!prevBest || score > prevBest.score) store("best:" + ch.id, { score: score, total: total });
       var pct = Math.round(100 * score / total);
@@ -445,7 +539,7 @@
       res.innerHTML = h;
       res.scrollIntoView({ behavior: "smooth", block: "center" });
       res.querySelector("[data-retry]").addEventListener("click", function () {
-        renderQuiz(root, course, ch);
+        renderQuiz(root, course, ch, spelling);
         root.scrollIntoView({ behavior: "smooth" });
       });
       var form = res.querySelector(".submit-form");
@@ -461,7 +555,9 @@
             course: course.short || course.name, chapter: "Ch " + ch.num + " " + ch.title,
             score: score, total: total,
             wrong: ch.diagnostic ? (weak.length ? "NEEDS: " + weak.join("; ") : "All secure") :
-              qs.filter(function (x) { return x.picked !== x.answer; }).map(function (x) { return x.q; }).join(" | ")
+              qs.filter(function (x) { return x.picked !== x.answer; }).map(function (x) { return x.q.replace(/\*\*|[~^]/g, ""); })
+                .concat(sp.filter(function (x) { return !x.ok; }).map(function (x) { return "Spelling: " + x.term + " → '" + x.typed + "'"; }))
+                .join(" | ")
           };
           store("student", { name: payload.name, cls: payload.cls, reg: payload.reg });
           var msgEl = form.querySelector(".form-msg");
@@ -481,10 +577,11 @@
     app.innerHTML = crumbs([["How to learn well"]]) +
       '<section class="block"><h1>How to use this site</h1>' +
       '<div class="sum-card"><h3>For each chapter</h3><ol>' +
+      "<li><strong>Recall</strong> — answer the 3 warm-up questions to wake up what you already know.</li>" +
       "<li><strong>Summary</strong> — read it once, then cover it and say the key ideas out loud.</li>" +
       "<li><strong>Watch</strong> — answer the 'While you watch' question in your notebook.</li>" +
       "<li><strong>Explore</strong> — do the 'Try this' task. Predict first, then test.</li>" +
-      "<li><strong>Quiz</strong> — aim for at least 6/8. Read every explanation, even for questions you got right.</li></ol></div>" +
+      "<li><strong>Quiz</strong> — aim for at least 75%. Read every explanation, even for questions you got right.</li></ol></div>" +
       '<div class="sum-card"><h3>Study habits that work</h3><ul>' +
       "<li><strong>Retrieval practice</strong>: test yourself instead of re-reading. The quiz reshuffles every time.</li>" +
       "<li><strong>Spacing</strong>: come back to a chapter's quiz a week later.</li>" +

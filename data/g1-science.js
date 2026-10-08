@@ -11,6 +11,7 @@ window.COURSES["g1-science"] = {
   name: "Science (G1)",
   short: "LSS G1",
   color: "teal",   /* sticker colour: teal, orange, yellow or pink */
+  quizSize: 5,     /* end-of-chapter test: 5 MCQs drawn at random from each quiz bank, + 5 spelling (data/spelling.js) */
   blurb: "Lower Secondary Science (G1): lab skills, Machines Around Us, Our Environment, and Our Body and Health.",
   syllabus: { label: "MOE Lower Secondary Science syllabus (G1)", url: "https://www.moe.gov.sg/-/media/files/secondary/syllabuses-nt/science/2021-science-syllabus-lower-secondary-nt.pdf" },
   chapters: [
