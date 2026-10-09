@@ -958,6 +958,8 @@ window.COURSES["g2g3-science"] = {
     video: { id: "vF_LIrbAAuo", title: "KS3 Science: Chemical changes and physical changes",
       think: "Is cooking an egg a physical or chemical change? How do you know?" },
     sims: [
+      { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
+        task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
       { title: "pH Scale: Basics", url: phet("ph-scale-basics"), embed: true,
         task: "Test five household liquids. Classify each as acidic, neutral or alkaline." },
       { title: "Neutralization Reaction Model", url: "https://javalab.org/en/neutralization_reaction_en/", embed: false,

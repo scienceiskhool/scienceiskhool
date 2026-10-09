@@ -481,6 +481,8 @@ window.COURSES["pure-chem"] = {
     video: { id: "PbOxh1gHxy4", title: "Acids and Bases (Science is Khool)",
       think: "Which ion is present in a higher concentration in a solution of pH 2 than in pH 6?" },
     sims: [
+      { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
+        task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
       { title: "pH Scale", url: phet("ph-scale"), embed: true, task: "Dilute an acid ten times. How does the pH change?" },
       { title: "Acid–Base Solutions", url: phet("acid-base-solutions"), embed: true, task: "Compare a strong and a weak acid at the same concentration. Which has more ions? Which has the lower pH?" },
       { title: "Precipitation Reaction", url: "https://javalab.org/en/precipitation_reaction_en/", embed: false, task: "Which ions form the precipitate? Which are spectator ions?" }

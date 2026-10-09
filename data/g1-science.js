@@ -548,6 +548,8 @@ window.COURSES["g1-science"] = {
         think: "Which part of a mixture is collected as the residue, and which as the filtrate?" }
     ],
     sims: [
+      { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
+        task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
       { title: "Density", url: "https://phet.colorado.edu/sims/html/density/latest/density_en.html", embed: true,
         task: "Find the mass and volume of each block. Calculate its density. Predict whether it floats in water, then test it." },
       { title: "pH Scale: Basics", url: "https://phet.colorado.edu/sims/html/ph-scale-basics/latest/ph-scale-basics_en.html", embed: true,

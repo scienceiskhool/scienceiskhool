@@ -451,6 +451,8 @@ window.COURSES["combined-chem"] = {
     video: { id: "PbOxh1gHxy4", title: "Acids and Bases (Science is Khool)",
       think: "Which ion is present in a higher concentration in a solution of pH 2 than in pH 6?" },
     sims: [
+      { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
+        task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
       { title: "pH Scale", url: "https://phet.colorado.edu/sims/html/ph-scale/latest/ph-scale_en.html", embed: true,
         task: "On the **Micro** screen, compare the H~3~O^+^ and OH^−^ ions in an acid, water and an alkali. What happens to pH when you dilute an acid?" },
       { title: "Neutralization Reaction Model", url: "https://javalab.org/en/neutralization_reaction_en/", embed: false,
