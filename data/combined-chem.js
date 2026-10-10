@@ -258,6 +258,10 @@ window.COURSES["combined-chem"] = {
     video: { id: "cFS8cb7g8N0", title: "Chemical Bonding (Science is Khool)",
       think: "Draw the dot-and-cross diagram for magnesium chloride after watching." },
     sims: [
+      { title: "Dot-and-Cross Diagrams (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/bonding/dotcross", embed: true,
+        task: "Decide first: is it **ionic** (transfer electrons) or **covalent** (share electrons)? Then count the outer-shell electrons." },
+      { title: "Ionic Formula Puzzle Bubble (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/puzzlebubble", embed: true,
+        task: "Match ions so the **charges cancel to zero**. Check: total positive charge = total negative charge." },
       { title: "Ionic Bond — NaCl", url: "https://javalab.org/en/nacl_ionic_bond_en/", embed: false,
         task: "Watch the electron transfer. Which atom becomes positive and which becomes negative? Why?" },
       { title: "Covalent Bond", url: "https://javalab.org/en/covalent_bond_en/", embed: false,
@@ -358,6 +362,12 @@ window.COURSES["combined-chem"] = {
         think: "How many moles are in 11 g of CO~2~ (M~r~ = 44)?" }
     ],
     sims: [
+      { title: "Write the Formula (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/writeformula", embed: true,
+        task: "Work out the charge or valency of each part first, then write the formula." },
+      { title: "Ionic Formula Puzzle Bubble (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/puzzlebubble", embed: true,
+        task: "Match ions so the **charges cancel to zero**. Check: total positive charge = total negative charge." },
+      { title: "Ionic Quest (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/ionicquest/ionicquest.html", embed: true,
+        task: "Split only **aqueous** ionic compounds into ions, cancel the spectator ions, then check charges balance." },
       { title: "Balancing Chemical Equations", url: "https://phet.colorado.edu/sims/html/balancing-chemical-equations/latest/balancing-chemical-equations_en.html", embed: true,
         task: "Complete the Game, level 1 and level 2. Can you get full stars without guessing?" },
       { title: "Reactants, Products and Leftovers", url: "https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_en.html", embed: true,
@@ -453,6 +463,10 @@ window.COURSES["combined-chem"] = {
     sims: [
       { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
         task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
+      { title: "Salt Preparation (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/saltprep/saltprep", embed: true,
+        task: "Before choosing a method, ask: is the salt **soluble**? Is it a sodium, potassium or ammonium salt?" },
+      { title: "Solubility of Salts (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/solubility/solubility", embed: true,
+        task: "Aim to sort every salt correctly. Afterwards, write the solubility rules from memory." },
       { title: "pH Scale", url: "https://phet.colorado.edu/sims/html/ph-scale/latest/ph-scale_en.html", embed: true,
         task: "On the **Micro** screen, compare the H~3~O^+^ and OH^−^ ions in an acid, water and an alkali. What happens to pH when you dilute an acid?" },
       { title: "Neutralization Reaction Model", url: "https://javalab.org/en/neutralization_reaction_en/", embed: false,
@@ -552,6 +566,10 @@ window.COURSES["combined-chem"] = {
     video: { id: "2GaCalUoJZ4", title: "Identify cations using aqueous sodium hydroxide | Qualitative analysis",
       think: "Which two cations give a white precipitate that dissolves in excess NaOH?" },
     sims: [
+      { title: "Solubility of Salts (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/solubility/solubility", embed: true,
+        task: "Aim to sort every salt correctly. Afterwards, write the solubility rules from memory." },
+      { title: "Ionic Quest (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/ionicquest/ionicquest.html", embed: true,
+        task: "Split only **aqueous** ionic compounds into ions, cancel the spectator ions, then check charges balance." },
       { title: "Precipitation Reaction", url: "https://javalab.org/en/precipitation_reaction_en/", embed: false,
         task: "Mix two solutions. Which ions combine to form the precipitate? Which ions stay in solution?" }
     ],
@@ -883,6 +901,8 @@ window.COURSES["combined-chem"] = {
     video: { id: "jd6U5nQcqKc", title: "Factors affecting rate of reaction + collision theory",
       think: "Why does powdered chalk react faster with acid than a lump of chalk of the same mass?" },
     sims: [
+      { title: "Rate of Reaction (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/rate/rate", embed: true,
+        task: "Change one factor at a time. **Predict** whether the reaction will speed up or slow down, then explain using collision theory." },
       { title: "Reaction Rate", url: "https://javalab.org/en/reaction_rate_of_solution_en/", embed: false,
         task: "Change the concentration and the temperature one at a time. Record what happens to the number of collisions and the rate." },
       { title: "Reactions & Rates (PhET)", url: "https://phet.colorado.edu/sims/cheerpj/reactions-and-rates/latest/reactions-and-rates.html?simulation=reactions-and-rates", embed: false,
@@ -982,6 +1002,8 @@ window.COURSES["combined-chem"] = {
     video: { id: "CjmriZq5xRo", title: "GCSE Chemistry: Crude oil and fractional distillation",
       think: "Why do the smallest molecules collect at the top of the fractionating column?" },
     sims: [
+      { title: "PolymerCraft (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/polymer/polymercraft", embed: true,
+        task: "For each polymer, identify the **monomer** and the repeat unit." },
       { title: "Alkane Compound", url: "https://javalab.org/en/alkane_compound_en/", embed: false,
         task: "Build methane, ethane and propane. Check the general formula C~n~H~2n+2~ for each." },
       { title: "Covalent Bonds of Hydrocarbon", url: "https://javalab.org/en/hydrocarbon_en/", embed: false,

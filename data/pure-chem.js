@@ -277,6 +277,10 @@ window.COURSES["pure-chem"] = {
     video: { id: "cFS8cb7g8N0", title: "Chemical Bonding (Science is Khool)",
       think: "Draw the dot-and-cross diagram for magnesium chloride after watching." },
     sims: [
+      { title: "Dot-and-Cross Diagrams (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/bonding/dotcross", embed: true,
+        task: "Decide first: is it **ionic** (transfer electrons) or **covalent** (share electrons)? Then count the outer-shell electrons." },
+      { title: "Ionic Formula Puzzle Bubble (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/puzzlebubble", embed: true,
+        task: "Match ions so the **charges cancel to zero**. Check: total positive charge = total negative charge." },
       { title: "Ionic Bond — NaCl", url: "https://javalab.org/en/nacl_ionic_bond_en/", embed: false,
         task: "Describe the electron transfer and the charges of the ions formed." },
       { title: "Covalent Bond", url: "https://javalab.org/en/covalent_bond_en/", embed: false,
@@ -373,6 +377,12 @@ window.COURSES["pure-chem"] = {
         think: "How many moles are in 11 g of CO~2~ (M~r~ = 44)?" }
     ],
     sims: [
+      { title: "Write the Formula (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/writeformula", embed: true,
+        task: "Work out the charge or valency of each part first, then write the formula." },
+      { title: "Ionic Formula Puzzle Bubble (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/puzzlebubble", embed: true,
+        task: "Match ions so the **charges cancel to zero**. Check: total positive charge = total negative charge." },
+      { title: "Ionic Quest (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/ionicquest/ionicquest.html", embed: true,
+        task: "Split only **aqueous** ionic compounds into ions, cancel the spectator ions, then check charges balance." },
       { title: "Balancing Chemical Equations", url: phet("balancing-chemical-equations"), embed: true, task: "Complete the game at level 3." },
       { title: "Reactants, Products and Leftovers", url: phet("reactants-products-and-leftovers"), embed: true, task: "Predict the limiting reactant and leftovers before checking." },
       { title: "Molarity", url: phet("molarity"), embed: true, task: "Find the volume needed to make a 0.50 mol/dm^3^ solution from a fixed number of moles." }
@@ -483,6 +493,10 @@ window.COURSES["pure-chem"] = {
     sims: [
       { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
         task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
+      { title: "Salt Preparation (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/saltprep/saltprep", embed: true,
+        task: "Before choosing a method, ask: is the salt **soluble**? Is it a sodium, potassium or ammonium salt?" },
+      { title: "Solubility of Salts (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/solubility/solubility", embed: true,
+        task: "Aim to sort every salt correctly. Afterwards, write the solubility rules from memory." },
       { title: "pH Scale", url: phet("ph-scale"), embed: true, task: "Dilute an acid ten times. How does the pH change?" },
       { title: "Acid–Base Solutions", url: phet("acid-base-solutions"), embed: true, task: "Compare a strong and a weak acid at the same concentration. Which has more ions? Which has the lower pH?" },
       { title: "Precipitation Reaction", url: "https://javalab.org/en/precipitation_reaction_en/", embed: false, task: "Which ions form the precipitate? Which are spectator ions?" }
@@ -565,7 +579,11 @@ window.COURSES["pure-chem"] = {
     keyTerms: [["Precipitate", "Insoluble solid formed in a solution."], ["Effervescence", "Bubbling due to gas being given off."], ["Qualitative analysis", "Identifying substances by observable tests."]],
     video: { id: "2GaCalUoJZ4", title: "Identify cations using aqueous sodium hydroxide",
       think: "How would you distinguish Zn^2+^ from Al^3+^?" },
-    sims: [{ title: "Precipitation Reaction", url: "https://javalab.org/en/precipitation_reaction_en/", embed: false, task: "Write the ionic equation for the precipitate formed." }],
+    sims: [
+      { title: "Solubility of Salts (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/solubility/solubility", embed: true,
+        task: "Aim to sort every salt correctly. Afterwards, write the solubility rules from memory." },
+      { title: "Ionic Quest (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/ionicquest/ionicquest.html", embed: true,
+        task: "Split only **aqueous** ionic compounds into ions, cancel the spectator ions, then check charges balance." },{ title: "Precipitation Reaction", url: "https://javalab.org/en/precipitation_reaction_en/", embed: false, task: "Write the ionic equation for the precipitate formed." }],
     quiz: [
       { q: "Acidified silver nitrate is added to a solution and a yellow precipitate forms. The anion is…",
         options: ["iodide", "chloride", "sulfate", "carbonate"],
@@ -905,6 +923,8 @@ window.COURSES["pure-chem"] = {
     video: { id: "hz_9521YMRc", title: "Catalysts and activation energy",
       think: "Why does a catalyst not increase the amount of product?" },
     sims: [
+      { title: "Rate of Reaction (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/rate/rate", embed: true,
+        task: "Change one factor at a time. **Predict** whether the reaction will speed up or slow down, then explain using collision theory." },
       { title: "Reaction Rate", url: "https://javalab.org/en/reaction_rate_of_solution_en/", embed: false, task: "Change one variable at a time and compare the rate." },
       { title: "Reactions & Rates (PhET)", url: "https://phet.colorado.edu/sims/cheerpj/reactions-and-rates/latest/reactions-and-rates.html?simulation=reactions-and-rates", embed: false, task: "Lower the activation energy using the energy diagram. What happens to the rate?" }
     ],
@@ -1003,6 +1023,8 @@ window.COURSES["pure-chem"] = {
     video: { id: "1ZUg6ZC3ltA", title: "GCSE Chemistry: Addition polymers & polymerisation",
       think: "Draw the repeating unit of the polymer made from propene." },
     sims: [
+      { title: "PolymerCraft (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/polymer/polymercraft", embed: true,
+        task: "For each polymer, identify the **monomer** and the repeat unit." },
       { title: "Alkane Compound", url: "https://javalab.org/en/alkane_compound_en/", embed: false, task: "Build butane and one of its isomers." },
       { title: "Build a Molecule", url: phet("build-a-molecule"), embed: true, task: "Build ethanol and ethanoic acid. What is the difference in their functional groups?" }
     ],
