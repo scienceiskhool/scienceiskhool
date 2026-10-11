@@ -100,6 +100,11 @@ If something breaks after an edit, a comma or quote is usually missing. GitHub k
 - **G1 spelling** is in `data/spelling.js`: `S("term", "clue")`. Add accepted alternatives as a third item, e.g. `S("sulfur dioxide", "…", ["sulphur dioxide"])`. Checking ignores capitals and extra spaces.
 - The **G1 end-of-chapter test** draws 5 MCQs at random from each chapter's quiz bank, followed by the 5 spelling items (score out of 10). To change how many MCQs are drawn, edit `quizSize: 5` near the top of `data/g1-science.js`. To hide the "Starts with …" hint, add `spellHint: false` next to it.
 
+### Your games and the Arcade page
+
+- To add a game to a chapter, add a line to that chapter's `sims` list with `source: "Game"` and `embed: true` (copy an existing game line). Simulations with `embed: true` load on the page automatically.
+- To list a game on the **Arcade** page (`#/arcade`), add a line to `data/arcade.js` with its title, link, icon and a one-line blurb. The chapter tags on each cabinet appear automatically when the same link is used in a chapter.
+
 ## 5. Before sharing with students
 
 - **Watch each video once on the live site.** If one says "Video unavailable" or "Playback on other websites has been disabled", its owner has blocked embedding. Swap it for another video.

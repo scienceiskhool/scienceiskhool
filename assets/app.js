@@ -86,6 +86,10 @@
       });
       html += "</div></section>";
     });
+    if (window.ARCADE && ARCADE.games.length) {
+      html += '<a class="arcade-banner" href="#/arcade"><span class="ab-joy" aria-hidden="true">🕹️</span>' +
+        '<span><strong>Science is Khool Arcade</strong><span class="small">' + ARCADE.games.length + ' games made by Ms Khoo. Press start!</span></span><span class="ab-go">PLAY ▶</span></a>';
+    }
     app.innerHTML = html;
   }
 
@@ -241,7 +245,8 @@
           '<a class="btn small" href="' + esc(s.url) + '" target="_blank" rel="noopener">Open full screen ↗</a></div>' +
           (s.task ? '<div class="think"><strong>Try this:</strong> ' + fmt(s.task) + "</div>" : "");
         if (s.embed) {
-          html += '<div class="sim-frame" data-src="' + esc(s.url) + '"><button class="btn" data-load-sim="' + i + '">▶ Load simulation here</button></div>';
+          // Loads automatically; "lazy" means it only starts loading when the student scrolls near it.
+          html += '<div class="sim-frame loaded"><iframe src="' + esc(s.url) + '" title="' + esc(s.title) + '" loading="lazy" allow="fullscreen; autoplay" allowfullscreen></iframe></div>';
         }
         html += "</div>";
       });
@@ -290,13 +295,6 @@
         f.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen");
         f.setAttribute("allowfullscreen", "");
         b.parentNode.replaceChild(f, b);
-      });
-    });
-    app.querySelectorAll("[data-load-sim]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var box = b.parentNode;
-        box.innerHTML = '<iframe src="' + esc(box.getAttribute("data-src")) + '" title="Simulation" allowfullscreen></iframe>';
-        box.classList.add("loaded");
       });
     });
     if (recall.length) renderRecall(document.getElementById("recall-q"), recall);
@@ -571,6 +569,83 @@
     }
   }
 
+  /* ---------- arcade: all of Ms Khoo's games (list in data/arcade.js) ---------- */
+  var NEON = ["#FF8243", "#FF6FAE", "#FCE883", "#14E0D0"];
+  function gameChapters(url) {
+    var out = [];
+    Object.keys(COURSES).forEach(function (cid) {
+      var c = COURSES[cid];
+      c.chapters.forEach(function (ch) {
+        (ch.sims || []).forEach(function (s) {
+          if (s.url.replace(/\.html$/, "") === url.replace(/\.html$/, "")) out.push({ course: c, ch: ch });
+        });
+      });
+    });
+    return out;
+  }
+  function viewArcade() {
+    setTitle("Arcade");
+    var games = (window.ARCADE && ARCADE.games) || [];
+    var courses = [];
+    var cards = games.map(function (g, i) {
+      var where = gameChapters(g.url);
+      where.forEach(function (w) { if (courses.indexOf(w.course.short) === -1) courses.push(w.course.short); });
+      var col = NEON[i % NEON.length];
+      return '<article class="cab" style="--neon:' + col + '" data-courses="' + esc(where.map(function (w) { return w.course.short; }).join("|")) + '">' +
+        '<div class="cab-marquee">' + esc(g.title) + '</div>' +
+        '<button class="cab-screen" data-play="' + i + '" aria-label="Play ' + esc(g.title) + '"><span class="cab-icon" aria-hidden="true">' + esc(g.icon || "🎮") + '</span>' +
+        '<span class="cab-press">PRESS START</span></button>' +
+        '<div class="cab-body"><p>' + esc(g.blurb || "") + '</p>' +
+        (where.length ? '<div class="cab-tags">' + where.map(function (w) {
+          return '<a href="#/chapter/' + esc(w.ch.id) + '">' + esc(w.course.short) + " · Ch " + esc(w.ch.num) + "</a>";
+        }).join("") + "</div>" : "") +
+        '<div class="cab-btns"><button class="px-btn" data-play="' + i + '">▶ PLAY</button>' +
+        '<a class="px-btn ghost" href="' + esc(g.url) + '" target="_blank" rel="noopener">NEW TAB ↗</a></div></div></article>';
+    }).join("");
+    var order = ["LSS G1", "LSS G2/G3", "Combined Chem", "Pure Chem"];
+    courses.sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); });
+    app.innerHTML = '<section class="arcade">' +
+      '<header class="arcade-head"><p class="px blink">INSERT COIN</p><h1 class="px">SCIENCE IS KHOOL<br><span>ARCADE</span></h1>' +
+      '<p class="arcade-sub">' + games.length + ' games made by Ms Khoo. Pick a cabinet and press start!</p></header>' +
+      '<div class="arcade-filter" role="group" aria-label="Filter by course"><button class="px-chip on" data-f="">ALL</button>' +
+      courses.map(function (c) { return '<button class="px-chip" data-f="' + esc(c) + '">' + esc(c.toUpperCase()) + "</button>"; }).join("") + "</div>" +
+      '<div class="cabs">' + cards + "</div>" +
+      '<p class="arcade-foot px">© MS KHOO · <a href="#/">EXIT TO HOME</a></p></section>';
+    app.querySelectorAll("[data-f]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var f = b.getAttribute("data-f");
+        app.querySelectorAll("[data-f]").forEach(function (x) { x.classList.toggle("on", x === b); });
+        app.querySelectorAll(".cab").forEach(function (cab) {
+          cab.hidden = !!f && cab.getAttribute("data-courses").split("|").indexOf(f) === -1;
+        });
+      });
+    });
+    app.querySelectorAll("[data-play]").forEach(function (b) {
+      b.addEventListener("click", function () { openPlayer(games[+b.getAttribute("data-play")]); });
+    });
+  }
+  function openPlayer(g) {
+    closePlayer();
+    var ov = document.createElement("div");
+    ov.className = "player";
+    ov.setAttribute("role", "dialog");
+    ov.setAttribute("aria-label", g.title);
+    ov.innerHTML = '<div class="player-bar"><span class="px">' + esc(g.title) + '</span><span class="player-btns">' +
+      '<a class="px-btn ghost" href="' + esc(g.url) + '" target="_blank" rel="noopener">NEW TAB ↗</a>' +
+      '<button class="px-btn" data-exit>EXIT ✕</button></span></div>' +
+      '<iframe src="' + esc(g.url) + '" title="' + esc(g.title) + '" allow="fullscreen; autoplay" allowfullscreen></iframe>';
+    document.body.appendChild(ov);
+    document.body.classList.add("no-scroll");
+    ov.querySelector("[data-exit]").addEventListener("click", closePlayer);
+    ov.querySelector("[data-exit]").focus();
+  }
+  function closePlayer() {
+    var ov = document.querySelector(".player");
+    if (ov) ov.remove();
+    document.body.classList.remove("no-scroll");
+  }
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePlayer(); });
+
   /* ---------- how to learn ---------- */
   function viewHowTo() {
     setTitle("How to learn well");
@@ -624,11 +699,14 @@
   /* ---------- router ---------- */
   function route() {
     var h = location.hash.replace(/^#\/?/, "");
+    document.body.classList.toggle("arcade-mode", /^arcade/.test(h));
+    closePlayer();
     var parts = h.split("/");
     if (!h) viewHome();
     else if (parts[0] === "course") viewCourse(parts[1]);
     else if (parts[0] === "chapter") viewChapter(parts[1]);
     else if (parts[0] === "how-to-learn") viewHowTo();
+    else if (parts[0] === "arcade") viewArcade();
     else viewNotFound();
     window.scrollTo(0, 0);
   }

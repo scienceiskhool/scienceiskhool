@@ -362,6 +362,8 @@ window.COURSES["combined-chem"] = {
         think: "How many moles are in 11 g of CO~2~ (M~r~ = 44)?" }
     ],
     sims: [
+      { title: "Mole Mayhem (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/molemayhem/molemayhem", embed: true,
+        task: "Write down the formula you use for each question (n = m ÷ M, n = V ÷ 24 dm^3^ for gases, or n = c × V) before you answer." },
       { title: "Write the Formula (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/writeformula", embed: true,
         task: "Work out the charge or valency of each part first, then write the formula." },
       { title: "Ionic Formula Puzzle Bubble (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/puzzlebubble", embed: true,
