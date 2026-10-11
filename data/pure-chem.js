@@ -580,6 +580,8 @@ window.COURSES["pure-chem"] = {
     video: { id: "2GaCalUoJZ4", title: "Identify cations using aqueous sodium hydroxide",
       think: "How would you distinguish Zn^2+^ from Al^3+^?" },
     sims: [
+      { title: "QA Pac-Man (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/QA/pacman", embed: true,
+        task: "Before you move, recall the **test and observation** for each ion or gas. Afterwards, list the ones you got wrong and revise them." },
       { title: "Solubility of Salts (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/solubility/solubility", embed: true,
         task: "Aim to sort every salt correctly. Afterwards, write the solubility rules from memory." },
       { title: "Ionic Quest (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/ionicquest/ionicquest.html", embed: true,
