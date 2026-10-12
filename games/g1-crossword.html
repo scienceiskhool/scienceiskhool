@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Science Crosswords</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: Science is Khool "Arcade Punch" — teal scoreboard on top, sticker-outlined grid card, clue lists beside (wide) or below (phone). Light only, by brand choice. */
+:root {
+  --orange: #FF8243; --pink: #FFC0CB; --yellow: #FCE883; --teal: #069494;
+  --ink: #1d2626; --muted: #5a6b6b; --line: #1d2626; --paper: #ffffff; --wash: #f3fbfa;
+  --good: #1f9d55; --goodbg: #d9f5e4; --bad: #d64545; --badbg: #ffe1e1;
+  --font: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--paper); color: var(--ink); }
+body { font-family: var(--font); font-size: 16px; line-height: 1.45; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 16px; padding-block: 16px 40px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+button, select, input { font: inherit; }
+.btn { border: 2.5px solid var(--line); border-radius: 12px; padding: 10px 18px; font-weight: 800; background: var(--yellow); color: var(--ink);
+  box-shadow: 0 4px 0 var(--line); cursor: pointer; transition: transform .08s, box-shadow .08s; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--line); }
+.btn:focus-visible, .chip:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+.btn.teal { background: var(--teal); color: #fff; }
+.btn.orange { background: var(--orange); }
+.btn.pink { background: var(--pink); }
+.btn.ghost { background: var(--paper); }
+.btn:disabled { opacity: .55; cursor: default; }
+.card { border: 2.5px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: 0 6px 0 var(--line); }
+
+/* Start screen */
+.hero { display: flex; gap: 14px; align-items: center; margin-block: 8px 18px; }
+.badge { width: 58px; height: 58px; border-radius: 16px; border: 2.5px solid var(--line); background: var(--yellow); display: grid; place-items: center;
+  box-shadow: 0 4px 0 var(--line); flex: none; }
+.hero h1 { font-size: clamp(1.6rem, 5vw, 2.3rem); font-weight: 800; line-height: 1.1; }
+.hero p { margin: 4px 0 0; color: var(--muted); font-weight: 600; }
+.start { padding: 20px; display: grid; gap: 18px; max-width: 720px; }
+.fields { display: grid; grid-template-columns: 2fr 1.3fr .8fr; gap: 12px; }
+@media (max-width: 560px) { .fields { grid-template-columns: 1fr 1fr; } .fields .f-name { grid-column: 1 / -1; } }
+label.f { display: grid; gap: 4px; font-weight: 700; font-size: .85rem; letter-spacing: .02em; }
+label.f input, label.f select { border: 2px solid var(--line); border-radius: 10px; padding: 9px 10px; background: var(--paper); color: var(--ink); width: 100%; min-width: 0; }
+.chapters { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.chip { text-align: left; border: 2.5px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--paper); cursor: pointer; display: grid; gap: 2px;
+  box-shadow: 0 4px 0 var(--line); color: var(--ink); }
+.chip .k { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+.chip .t { font-weight: 800; line-height: 1.25; }
+.chip[aria-pressed="true"] { background: var(--yellow); }
+.chip[aria-pressed="true"] .k { color: var(--ink); }
+.err { color: var(--bad); font-weight: 700; min-height: 1.4em; margin: 0; }
+.howto { margin: 0; color: var(--muted); font-size: .92rem; }
+
+/* Game */
+.score { background: var(--teal); color: #fff; border: 2.5px solid var(--line); border-radius: 16px; box-shadow: 0 5px 0 var(--line);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 16px; margin-bottom: 14px; }
+.score h2 { font-size: 1.1rem; font-weight: 800; flex: 1 1 220px; min-width: 0; }
+.score h2 small { display: block; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.stat { background: var(--paper); color: var(--ink); border: 2px solid var(--line); border-radius: 10px; padding: 3px 10px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.stat span { font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+.game { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 18px; align-items: start; }
+@media (max-width: 820px) { .game { grid-template-columns: minmax(0, 1fr); } }
+.board { padding: 14px; display: grid; gap: 12px; min-width: 0; }
+.cluebar { background: var(--pink); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; font-weight: 700; min-height: 2.9em; display: flex; gap: 10px; align-items: center; }
+.cluebar b { background: var(--paper); border: 2px solid var(--line); border-radius: 8px; padding: 0 7px; white-space: nowrap; }
+.gridbox { overflow-x: auto; display: flex; justify-content: center; }
+.grid { display: grid; gap: 0; position: relative; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+.cell { width: var(--cs); height: var(--cs); position: relative; }
+.cell.on { border: 1.5px solid var(--line); margin: -0.75px; background: var(--paper); cursor: pointer; }
+.cell .n { position: absolute; top: 1px; left: 3px; font-size: calc(var(--cs) * .28); font-weight: 700; line-height: 1; color: var(--ink); }
+.cell .l { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 800; font-size: calc(var(--cs) * .55); padding-top: calc(var(--cs) * .1); text-transform: uppercase; }
+.cell.word { background: #e2f4f2; }
+.cell.cur { background: var(--yellow); }
+.cell.wrong { background: var(--badbg); }
+.cell.wrong .l { color: var(--bad); }
+.cell.right { background: var(--goodbg); }
+.cell.shown .l { color: var(--teal); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.note { margin: 0; font-size: .85rem; color: var(--muted); }
+.clues { padding: 12px 14px; display: grid; gap: 10px; max-height: 76vh; overflow: auto; min-width: 0; }
+@media (max-width: 820px) { .clues { max-height: none; } }
+.clues h3 { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); font-weight: 800; }
+.clues ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.clues li button { all: unset; display: grid; grid-template-columns: 1.8em 1fr; gap: 4px; padding: 6px 8px; border-radius: 9px; cursor: pointer; font-size: .93rem; line-height: 1.35; width: 100%; box-sizing: border-box; }
+.clues li button:focus-visible { outline: 3px solid var(--orange); }
+.clues li button .num { font-weight: 800; }
+.clues li button .en { font-weight: 700; color: var(--muted); white-space: nowrap; }
+.clues li button.act { background: var(--yellow); }
+.clues li button.done { color: var(--muted); }
+.clues li button.done .txt { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+#kb { position: fixed; left: -9999px; top: 0; opacity: 0; width: 2px; height: 2px; font-size: 16px; }
+
+/* Modal-like panels */
+.panel { padding: 18px; display: grid; gap: 12px; margin-bottom: 14px; }
+.panel h2 { font-size: 1.3rem; font-weight: 800; }
+.big { font-size: clamp(2.2rem, 8vw, 3.2rem); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.results { display: flex; flex-wrap: wrap; gap: 12px; }
+.results .stat { padding: 8px 14px; font-size: 1.1rem; }
+.misses { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.misses s { color: var(--bad); }
+.misses strong { color: var(--good); }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <!-- START -->
+  <section id="startView">
+    <div class="hero">
+      <div class="badge" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 34 34"><g stroke="#1d2626" stroke-width="2.5" fill="#fff"><rect x="2" y="2" width="10" height="10"/><rect x="12" y="2" width="10" height="10" fill="#069494"/><rect x="22" y="2" width="10" height="10"/><rect x="12" y="12" width="10" height="10"/><rect x="12" y="22" width="10" height="10" fill="#FF8243"/></g></svg>
+      </div>
+      <div>
+        <h1>Science Crosswords</h1>
+        <p>S1 G1 Science · Science is Khool</p>
+      </div>
+    </div>
+    <form class="card start" id="startForm" novalidate>
+      <div class="fields">
+        <label class="f f-name">Name<input id="fName" autocomplete="name" placeholder="e.g. Tan Wei Ling"></label>
+        <label class="f">Class<select id="fClass"></select></label>
+        <label class="f">Reg no.<input id="fReg" inputmode="numeric" maxlength="3" placeholder="e.g. 12"></label>
+      </div>
+      <div>
+        <p style="margin:0 0 8px;font-weight:800">Choose a chapter</p>
+        <div class="chapters" id="chapters"></div>
+      </div>
+      <p class="howto">Tap a square and type. Tap the same square again to switch between Across and Down. When you are done, press <b>Submit</b> to send your score to Ms Khoo.</p>
+      <p class="err" id="startErr" role="alert"></p>
+      <div><button class="btn teal" type="submit">Start crossword</button></div>
+    </form>
+  </section>
+
+  <!-- GAME -->
+  <section id="gameView" hidden>
+    <div class="score">
+      <h2><small id="gChap">Chapter</small><span id="gTitle"></span></h2>
+      <div class="stat"><span>Words</span><b id="gDone">0</b>/<b id="gTotal">0</b></div>
+      <div class="stat"><span>Time</span><b id="gTime">0:00</b></div>
+      <div class="stat"><span>Checks</span><b id="gChecks">0</b></div>
+    </div>
+
+    <div class="card panel" id="confirmPanel" hidden>
+      <h2 id="confirmMsg">Submit now?</h2>
+      <div class="actions">
+        <button class="btn teal" id="confirmYes" type="button">Yes, submit</button>
+        <button class="btn ghost" id="confirmNo" type="button">Keep going</button>
+      </div>
+    </div>
+
+    <div class="card panel" id="resultPanel" hidden>
+      <h2>Your result</h2>
+      <div class="results">
+        <div class="stat"><span>Score</span><b id="rScore"></b></div>
+        <div class="stat"><span>Accuracy</span><b id="rPct"></b></div>
+        <div class="stat"><span>Time</span><b id="rTime"></b></div>
+        <div class="stat"><span>Checks</span><b id="rChecks"></b></div>
+      </div>
+      <div id="rMissWrap">
+        <p style="margin:0 0 4px;font-weight:800">Words to revise</p>
+        <ul class="misses" id="rMiss"></ul>
+      </div>
+      <p class="note" id="rSend" role="status"></p>
+      <div class="actions">
+        <button class="btn orange" id="retrySend" type="button" hidden>Try sending again</button>
+        <button class="btn" id="again" type="button">Play this chapter again</button>
+        <button class="btn pink" id="other" type="button">Choose another chapter</button>
+      </div>
+    </div>
+
+    <div class="game">
+      <div class="card board">
+        <div class="cluebar" id="clueBar" aria-live="polite"></div>
+        <div class="gridbox"><div class="grid" id="grid" role="grid" aria-label="Crossword grid"></div></div>
+        <div class="actions" id="gameActions">
+          <button class="btn ghost" id="checkBtn" type="button">Check my answers</button>
+          <button class="btn teal" id="submitBtn" type="button">Submit</button>
+          <button class="btn pink" id="quitBtn" type="button">Change chapter</button>
+        </div>
+        <p class="note" id="checkNote">Check shows wrong letters in red. Each check is counted, so try your best first.</p>
+      </div>
+      <div class="card clues" id="clues"></div>
+    </div>
+  </section>
+  <input id="kb" type="text" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" aria-label="Type a letter">
+</div>
+
+<script>
+const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbxCTjRCQzLlWXmmY-5R0p75WCmeFLzC9ZM3gNbGRXpcc_d9qHMXdyCn12B4dHpnrBWe/exec";
+const SHEET_TAB = "G1 Crossword";
+const CLASSES = ["S1 Charity","S1 Courage","S1 Faith","S1 Hope","S1 Humility","S1 Integrity","S1 Love","S1 Respect","S1 Joy","Other"];
+const PUZZLES = [{"num":1,"title":"Laboratory Measurements & Procedures","rows":14,"cols":13,"e":[[2,"A",1,0,"GOGGLES","GOGGLES","(7)","Wear safety ___ when heating or using chemicals."],[4,"A",3,2,"STRIKEBACK","STRIKE-BACK","(6-4)","When the flame burns down inside the barrel. Close the air hole before lighting to prevent it."],[6,"A",5,1,"TOXIC","TOXIC","(5)","Poisonous; can cause serious harm or death."],[8,"A",9,2,"THERMOMETER","THERMOMETER","(11)","Instrument used to measure temperature."],[9,"A",11,4,"LUMINOUS","LUMINOUS","(8)","The yellow, cooler 'safety flame' seen when the air hole is closed is a ___ flame."],[10,"A",13,1,"BALANCE","BALANCE","(7)","An electronic ___ is used to measure mass."],[1,"D",0,5,"MENISCUS","MENISCUS","(8)","The curved surface of a liquid in a narrow tube."],[3,"D",1,9,"FLAMMABLE","FLAMMABLE","(9)","Describes a substance like alcohol or petrol that catches fire easily."],[4,"D",3,2,"STOPWATCH","STOPWATCH","(9)","Instrument used to measure time."],[5,"D",4,12,"COLLAR","COLLAR","(6)","Turn the ___ of a Bunsen burner to open or close the air hole."],[7,"D",5,7,"CORROSIVE","CORROSIVE","(9)","Hazard symbol for acids and alkalis, which can severely damage skin and eyes on contact."]]},{"num":6,"title":"Matter","rows":12,"cols":14,"e":[[1,"A",0,1,"INDICATOR","INDICATOR","(9)","A substance that changes colour in acids and alkalis."],[4,"A",2,0,"MELTING","MELTING","(7)","Solid changes into a liquid when it gains energy."],[5,"A",2,8,"SOLUTE","SOLUTE","(6)","The substance that dissolves."],[6,"A",4,7,"FLOATS","FLOATS","(6)","An object that is less dense than the liquid ___."],[8,"A",6,7,"RESIDUE","RESIDUE","(7)","The solid left on the filter paper."],[9,"A",8,2,"FILTRATE","FILTRATE","(8)","The liquid that passes through the filter paper."],[10,"A",11,0,"SUSPENSION","SUSPENSION","(10)","A cloudy mixture of insoluble solid particles in a liquid."],[2,"D",0,5,"CONDENSATION","CONDENSATION","(12)","Gas changes into a liquid when it loses energy."],[3,"D",1,10,"ALKALI","ALKALI","(6)","Turns red litmus blue and has a pH more than 7."],[4,"D",2,0,"MAGNETIC","MAGNETIC","(8)","___ separation removes iron filings from sulfur powder."],[5,"D",2,8,"SOLVENT","SOLVENT","(7)","The liquid that dissolves the solute, e.g. water."],[7,"D",5,13,"DENSITY","DENSITY","(7)","Mass ÷ volume, measured in g/cm³."]]},{"num":7,"title":"Water","rows":13,"cols":12,"e":[[3,"A",1,3,"LITTER","LITTER","(6)","Plastic, metal and glass thrown into waterways that can trap turtles and birds."],[6,"A",3,0,"OIL","OIL","(3)","___ spills coat seabirds' feathers so they cannot fly or keep warm."],[7,"A",3,4,"NEWATER","NEWATER","(7)","High-grade reclaimed water made from used water."],[8,"A",5,1,"CATCHMENT","CATCHMENT","(9)","Local ___: rainwater collected in reservoirs."],[9,"A",8,0,"DESALINATION","DESALINATION","(12)","Removing salt from seawater."],[10,"A",10,0,"ULTRAVIOLET","ULTRAVIOLET","(11)","___ light kills any remaining microorganisms when making NEWater."],[11,"A",12,0,"PESTICIDES","PESTICIDES","(10)","Chemicals that are harmful or poisonous to aquatic animals and plants."],[1,"D",0,0,"JOHOR","JOHOR","(5)","Imported water comes from ___, Malaysia."],[2,"D",0,7,"SEWAGE","SEWAGE","(6)","Waste water from homes and toilets."],[4,"D",2,2,"ALGAE","ALGAE","(5)","Fertilisers in rivers cause rapid growth of ___, which blocks sunlight."],[5,"D",2,9,"FERTILISERS","FERTILISERS","(11)","Washed by rain into rivers, these lead to algal blooms."]]},{"num":8,"title":"Air","rows":13,"cols":13,"e":[[1,"A",0,0,"HAZE","HAZE","(4)","Smoky air caused mainly by forest fires."],[4,"A",2,1,"INCOMPLETE","INCOMPLETE","(10)","Carbon monoxide forms from the ___ burning of fossil fuels."],[6,"A",4,4,"CARPOOL","CARPOOL","(7)","Share a ride to reduce pollution from vehicles."],[8,"A",6,5,"NITROGEN","NITROGEN","(8)","Air contains this gas; its oxides help form acid rain."],[10,"A",9,1,"FOSSIL","FOSSIL","(6)","Burning ___ fuels is the main way we meet our energy needs, and it pollutes the air."],[11,"A",10,8,"PSI","PSI","(3)","Index that tells us how polluted the air is (short form)."],[12,"A",12,0,"MIXTURE","MIXTURE","(7)","Air is a ___ of gases."],[2,"D",0,1,"ACIDRAIN","ACID RAIN","(4,4)","Corrodes buildings and statues, and kills plants and fish."],[3,"D",1,12,"VOLCANOES","VOLCANOES","(9)","A natural source of sulfur dioxide."],[5,"D",2,6,"PARTICULATE","PARTICULATE","(11)","___ matter is the main pollutant in haze."],[7,"D",4,10,"LIGHTNING","LIGHTNING","(9)","A natural source of oxides of nitrogen."],[9,"D",7,3,"MASK","MASK","(4)","Wear an N95 ___ if you must go out during haze."]]},{"num":9,"title":"Cells","rows":13,"cols":11,"e":[[1,"A",0,6,"ORGAN","ORGAN","(5)","Different tissues working together, e.g. the heart or stomach."],[3,"A",2,0,"MUSCLE","MUSCLE","(6)","___ cells use oxygen to release energy so we can move."],[7,"A",4,5,"TISSUE","TISSUE","(6)","A group of similar cells with the same function."],[8,"A",6,5,"TRAITS","TRAITS","(6)","Features such as eye colour and dimples, determined by genes."],[10,"A",8,0,"ORGANISM","ORGANISM","(8)","The whole living thing."],[11,"A",10,5,"COARSE","COARSE","(6)","Turn the ___ adjustment knob first until you see something."],[12,"A",12,2,"NUCLEUS","NUCLEUS","(7)","Controls all the activities of the cell and contains genes."],[2,"D",0,8,"GENES","GENES","(5)","Found in the nucleus and inherited from parents."],[4,"D",2,3,"CYTOPLASM","CYTOPLASM","(9)","Jelly-like substance where most cell activities take place."],[5,"D",3,6,"MICROSCOPE","MICROSCOPE","(10)","Uses lenses to make tiny cells look bigger."],[6,"D",4,1,"MEMBRANE","MEMBRANE","(8)","The cell ___ controls what enters and leaves the cell."],[9,"D",6,10,"SYSTEM","SYSTEM","(6)","A group of organs working together."]]},{"num":10,"title":"Getting Energy and Nutrients from Food","rows":14,"cols":14,"e":[[1,"A",0,0,"SALIVA","SALIVA","(6)","In the mouth, ___ contains enzymes that digest carbohydrates."],[4,"A",3,3,"STOMACH","STOMACH","(7)","Mashes food into a liquid mixture; its acid gives a low pH."],[8,"A",7,1,"RESPIRATION","RESPIRATION","(11)","Release of energy in cells: digested food + oxygen → carbon dioxide + water."],[9,"A",9,5,"NUTRIENTS","NUTRIENTS","(9)","Substances in food that the body needs to build and repair cells."],[11,"A",12,0,"GULLET","GULLET","(6)","Moves food from the mouth to the stomach."],[12,"A",12,7,"OBESITY","OBESITY","(7)","A health risk of overeating."],[2,"D",0,5,"ABSORPTION","ABSORPTION","(10)","Movement of digested food into the blood, mainly in the small intestine."],[3,"D",0,8,"CIRCULATORY","CIRCULATORY","(11)","The ___ system carries digested food and oxygen to all parts of the body."],[5,"D",3,13,"ENZYMES","ENZYMES","(7)","Substances that speed up the chemical breakdown of food."],[6,"D",5,2,"CHEMICAL","CHEMICAL","(8)","___ digestion uses enzymes to break food down."],[7,"D",5,10,"PROTEINS","PROTEINS","(8)","Gastric juice contains enzymes that digest these."],[10,"D",9,12,"TEETH","TEETH","(5)","Cut food into smaller pieces during physical digestion."]]}];
+
+const $ = id => document.getElementById(id);
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+
+/* ---------- start screen ---------- */
+$("fClass").innerHTML = '<option value="">Select…</option>' + CLASSES.map(c => `<option>${c}</option>`).join("");
+$("fName").value = store.get("cw_name") || "";
+$("fClass").value = store.get("cw_class") || "";
+$("fReg").value = store.get("cw_reg") || "";
+let chosen = null;
+/* A link ending in #ch6 (etc.) opens with only that chapter, for the chapter pages on the site. */
+const hashNum = (location.hash.match(/^#ch(\d+)$/i) || [])[1];
+const lockedIdx = hashNum ? PUZZLES.findIndex(p => String(p.num) === hashNum) : -1;
+if (lockedIdx >= 0) {
+  chosen = lockedIdx;
+  ["quitBtn", "other"].forEach(id => { $(id).hidden = true; });
+}
+$("chapters").innerHTML = PUZZLES.map((p, i) => (lockedIdx >= 0 && i !== lockedIdx) ? "" :
+  `<button type="button" class="chip" aria-pressed="${i === chosen}" data-i="${i}"><span class="k">Chapter ${p.num}</span><span class="t">${p.title}</span></button>`).join("");
+$("chapters").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  chosen = +b.dataset.i;
+  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+});
+$("startForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("fName").value.trim(), cls = $("fClass").value, reg = $("fReg").value.trim();
+  const miss = [];
+  if (!name) miss.push("your name"); if (!cls) miss.push("your class"); if (!reg) miss.push("your register number"); if (chosen === null) miss.push("a chapter");
+  if (miss.length) { $("startErr").textContent = "Please fill in " + miss.join(", ").replace(/, ([^,]*)$/, " and $1") + "."; return; }
+  $("startErr").textContent = "";
+  store.set("cw_name", name); store.set("cw_class", cls); store.set("cw_reg", reg);
+  student = { name, cls, reg };
+  startGame(chosen);
+});
+
+/* ---------- game state ---------- */
+let student = null, P = null, cells = {}, entries = [], cur = null, dir = "A", startTime = 0, timer = null, checks = 0, finished = false, lastPayload = null;
+const key = (r, c) => r + "," + c;
+
+function startGame(i) {
+  P = PUZZLES[i]; cells = {}; checks = 0; finished = false; dir = "A";
+  entries = P.e.map(([n, d, r, c, word, ans, en, clue]) => ({ n, d, r, c, word, ans, en, clue, cells: [] }));
+  entries.forEach((e, idx) => {
+    for (let k = 0; k < e.word.length; k++) {
+      const r = e.r + (e.d === "D" ? k : 0), c = e.c + (e.d === "A" ? k : 0), id = key(r, c);
+      const cell = cells[id] || (cells[id] = { r, c, sol: e.word[k], val: "", A: null, D: null, num: null, el: null });
+      cell[e.d] = idx; e.cells.push(cell);
+      if (k === 0) cell.num = e.n;
+    }
+  });
+  $("gChap").textContent = "Chapter " + P.num; $("gTitle").textContent = P.title;
+  $("gTotal").textContent = entries.length; $("gChecks").textContent = 0;
+  buildGrid(); buildClues();
+  $("startView").hidden = true; $("gameView").hidden = false;
+  $("resultPanel").hidden = true; $("confirmPanel").hidden = true;
+  $("gameActions").hidden = false; $("checkNote").hidden = false;
+  const first = entries.find(e => e.d === "A") || entries[0];
+  select(first.cells[0], first.d, false);
+  startTime = Date.now(); clearInterval(timer); timer = setInterval(tick, 1000); tick();
+  window.scrollTo({ top: 0 });
+}
+function fmt(s) { return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+function elapsed() { return Math.round((Date.now() - startTime) / 1000); }
+function tick() { $("gTime").textContent = fmt(elapsed()); }
+
+function sizeGrid() {
+  if (!P) return;
+  const box = $("grid").parentElement.clientWidth || 320;
+  const cs = Math.max(22, Math.min(40, Math.floor((box - 4) / P.cols)));
+  $("grid").style.setProperty("--cs", cs + "px");
+}
+addEventListener("resize", sizeGrid);
+
+function buildGrid() {
+  const g = $("grid");
+  g.style.gridTemplateColumns = `repeat(${P.cols}, var(--cs))`;
+  g.innerHTML = "";
+  for (let r = 0; r < P.rows; r++) for (let c = 0; c < P.cols; c++) {
+    const cell = cells[key(r, c)], d = document.createElement("div");
+    d.className = "cell" + (cell ? " on" : "");
+    if (cell) {
+      d.setAttribute("role", "gridcell");
+      d.innerHTML = (cell.num ? `<span class="n">${cell.num}</span>` : "") + `<span class="l"></span>`;
+      d.addEventListener("click", () => tapCell(cell));
+      cell.el = d;
+    }
+    g.appendChild(d);
+  }
+  sizeGrid();
+}
+function buildClues() {
+  const part = d => `<div><h3>${d === "A" ? "Across" : "Down"}</h3><ol>` + entries.map((e, i) => e.d !== d ? "" :
+    `<li><button type="button" data-i="${i}"><span class="num">${e.n}</span><span><span class="txt">${e.clue}</span> <span class="en">${e.en}</span></span></button></li>`).join("") + "</ol></div>";
+  $("clues").innerHTML = part("A") + part("D");
+  $("clues").querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    const e = entries[+b.dataset.i];
+    const empty = e.cells.find(c => !c.val) || e.cells[0];
+    select(empty, e.d, true);
+    if (matchMedia("(max-width: 820px)").matches) $("grid").scrollIntoView({ block: "center", behavior: "smooth" });
+  }));
+}
+
+function tapCell(cell) {
+  if (finished) return;
+  if (cur === cell) { const other = dir === "A" ? "D" : "A"; if (cell[other] !== null) dir = other; }
+  else if (cell[dir] === null) dir = dir === "A" ? "D" : "A";
+  select(cell, dir, true);
+}
+function select(cell, d, focus) {
+  cur = cell; dir = cell[d] !== null ? d : (d === "A" ? "D" : "A");
+  paint();
+  if (focus && !finished) { const kb = $("kb"); kb.value = " "; kb.focus({ preventScroll: true }); }
+}
+function activeEntry() { return cur ? entries[cur[dir]] : null; }
+function paint() {
+  const e = activeEntry();
+  Object.values(cells).forEach(c => {
+    c.el.querySelector(".l").textContent = c.val;
+    c.el.classList.toggle("word", !!e && e.cells.includes(c));
+    c.el.classList.toggle("cur", c === cur && !finished);
+  });
+  if (e) $("clueBar").innerHTML = `<b>${e.n} ${e.d === "A" ? "Across" : "Down"}</b><span>${e.clue} <span style="color:var(--muted)">${e.en}</span></span>`;
+  let done = 0;
+  $("clues").querySelectorAll("button").forEach(b => {
+    const en = entries[+b.dataset.i];
+    const full = en.cells.every(c => c.val);
+    if (full) done++;
+    b.classList.toggle("act", en === e);
+    b.classList.toggle("done", full);
+  });
+  $("gDone").textContent = done;
+}
+
+/* ---------- typing (works with phone keyboards too) ---------- */
+function typeLetter(ch) {
+  if (!cur || finished) return;
+  cur.val = ch; cur.el.classList.remove("wrong");
+  const e = activeEntry(), i = e.cells.indexOf(cur);
+  if (i < e.cells.length - 1) cur = e.cells[i + 1];
+  paint();
+}
+function backspace() {
+  if (!cur || finished) return;
+  const e = activeEntry(), i = e.cells.indexOf(cur);
+  if (cur.val) cur.val = "";
+  else if (i > 0) { cur = e.cells[i - 1]; cur.val = ""; }
+  cur.el.classList.remove("wrong");
+  paint();
+}
+function move(dr, dc) {
+  if (!cur) return;
+  let r = cur.r + dr, c = cur.c + dc;
+  while (r >= 0 && c >= 0 && r < P.rows && c < P.cols) {
+    const n = cells[key(r, c)];
+    if (n) { const d = dr ? "D" : "A"; select(n, n[d] !== null ? d : dir, false); return; }
+    r += dr; c += dc;
+  }
+}
+const kb = $("kb");
+kb.addEventListener("input", () => {
+  const v = kb.value;
+  if (v.length < 1) backspace();
+  else { const letters = v.replace(/[^a-z]/gi, ""); if (letters) typeLetter(letters.slice(-1).toUpperCase()); }
+  kb.value = " ";
+});
+kb.addEventListener("keydown", ev => {
+  const map = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], ArrowDown: [1, 0] };
+  if (map[ev.key]) { ev.preventDefault(); move(...map[ev.key]); }
+  else if (ev.key === "Backspace" && kb.value === " ") { /* handled by input event */ }
+  else if (ev.key === "Enter" || ev.key === "Tab") { ev.preventDefault(); jumpEntry(ev.shiftKey ? -1 : 1); }
+});
+function jumpEntry(step) {
+  const e = activeEntry(); if (!e) return;
+  const i = (entries.indexOf(e) + step + entries.length) % entries.length;
+  const n = entries[i]; select(n.cells.find(c => !c.val) || n.cells[0], n.d, true);
+}
+
+/* ---------- check & submit ---------- */
+$("checkBtn").addEventListener("click", () => {
+  let wrong = 0;
+  Object.values(cells).forEach(c => { const bad = c.val && c.val !== c.sol; c.el.classList.toggle("wrong", bad); if (bad) wrong++; });
+  checks++; $("gChecks").textContent = checks;
+  $("checkNote").textContent = wrong ? `${wrong} letter${wrong > 1 ? "s are" : " is"} wrong (shown in red). Fix ${wrong > 1 ? "them" : "it"} and keep going.` : "No wrong letters so far. Nice!";
+});
+$("submitBtn").addEventListener("click", () => {
+  const blanks = Object.values(cells).filter(c => !c.val).length;
+  $("confirmMsg").textContent = blanks ? `You still have ${blanks} empty square${blanks > 1 ? "s" : ""}. Submit anyway?` : "All squares filled. Submit your crossword?";
+  $("confirmPanel").hidden = false; $("confirmPanel").scrollIntoView({ behavior: "smooth", block: "center" });
+});
+$("confirmNo").addEventListener("click", () => { $("confirmPanel").hidden = true; });
+$("confirmYes").addEventListener("click", finish);
+$("quitBtn").addEventListener("click", backToStart);
+$("other").addEventListener("click", backToStart);
+$("again").addEventListener("click", () => startGame(PUZZLES.indexOf(P)));
+$("retrySend").addEventListener("click", () => send(lastPayload));
+
+function backToStart() { clearInterval(timer); finished = true; $("gameView").hidden = true; $("startView").hidden = false; window.scrollTo({ top: 0 }); }
+
+function finish() {
+  finished = true; clearInterval(timer); kb.blur();
+  const t = elapsed();
+  const right = entries.filter(e => e.cells.every(c => c.val === c.sol));
+  const wrong = entries.filter(e => !right.includes(e));
+  Object.values(cells).forEach(c => {
+    c.el.classList.remove("wrong", "cur", "word");
+    if (c.val === c.sol) c.el.classList.add("right");
+    else { c.el.classList.add(c.val ? "wrong" : "shown"); }
+  });
+  // reveal the solution in empty squares
+  Object.values(cells).forEach(c => { if (!c.val) c.el.querySelector(".l").textContent = c.sol; });
+  const pct = Math.round(100 * right.length / entries.length);
+  $("rScore").textContent = `${right.length}/${entries.length}`;
+  $("rPct").textContent = pct + "%"; $("rTime").textContent = fmt(t); $("rChecks").textContent = checks;
+  $("rMiss").innerHTML = wrong.map(e => {
+    const got = e.cells.map(c => c.val || "_").join("");
+    return `<li>${e.n} ${e.d === "A" ? "Across" : "Down"}: ${e.cells.some(c => c.val) ? `<s>${got}</s> → ` : ""}<strong>${e.ans}</strong></li>`;
+  }).join("");
+  $("rMissWrap").hidden = !wrong.length;
+  $("confirmPanel").hidden = true; $("resultPanel").hidden = false;
+  $("gameActions").hidden = true; $("checkNote").hidden = true;
+  $("clueBar").innerHTML = right.length === entries.length ? "<span>Every word correct. Well done!</span>" : "<span>Green = correct · Red = wrong · Teal = answer you left blank</span>";
+  lastPayload = {
+    course: SHEET_TAB, cls: student.cls, reg: student.reg, name: student.name,
+    chapter: `Ch ${P.num} ${P.title}`, score: right.length, total: entries.length,
+    wrong: wrong.map(e => `${e.n}${e.d} ${e.ans}` + (e.cells.some(c => c.val) ? ` (wrote ${e.cells.map(c => c.val || "_").join("")})` : " (blank)")).join("; "),
+    time: t, points: null, summary: `Checks used: ${checks}`
+  };
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  send(lastPayload);
+}
+function send(payload) {
+  $("retrySend").hidden = true;
+  $("rSend").textContent = "Sending your score to Ms Khoo…";
+  fetch(SUBMIT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+    .then(() => { $("rSend").textContent = "Sent! Ms Khoo has your score."; })
+    .catch(() => { $("rSend").textContent = "Couldn't send your score. Check your internet, then try again."; $("retrySend").hidden = false; });
+}
+</script>
+
+</body>
+</html>

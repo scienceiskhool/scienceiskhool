@@ -82,7 +82,10 @@ window.COURSES["g1-science"] = {
     ],
     video: { id: "_41a0EXzVWs", title: "Bunsen burner safety essentials",
       think: "Why must the air hole be closed before lighting the burner?" },
-    sims: [],
+    sims: [
+      { title: "Chapter 1 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch1", embed: true,
+        task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." }
+    ],
     quiz: [
       { q: "Which flame should you use when heating a liquid in a test tube?",
         options: ["Non-luminous (blue) flame", "Luminous (yellow) flame", "Any flame, as long as it is big", "A flame with the gas tap half on and the air hole closed"],
@@ -548,6 +551,8 @@ window.COURSES["g1-science"] = {
         think: "Which part of a mixture is collected as the residue, and which as the filtrate?" }
     ],
     sims: [
+      { title: "Chapter 6 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch6", embed: true,
+        task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." },
       { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
         task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
       { title: "Density", url: "https://phet.colorado.edu/sims/html/density/latest/density_en.html", embed: true,
@@ -647,7 +652,10 @@ window.COURSES["g1-science"] = {
     ],
     video: { id: "5BGUT7BjPl0", title: "The Singapore Water Story (PUB)",
       think: "Why does Singapore need four different sources of water instead of just one?" },
-    sims: [],
+    sims: [
+      { title: "Chapter 7 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch7", embed: true,
+        task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." }
+    ],
     extra: [{ label: "Flashcards: Chapter 7 Water (Google Sheet)", url: "https://docs.google.com/spreadsheets/d/11dzT9czVggXCbLKzcULmEsd_sbPZewEVeC8mUUnOric/edit" }],
     quiz: [
       { q: "Fertilisers washed into a pond can cause fish to die. Why?",
@@ -729,6 +737,8 @@ window.COURSES["g1-science"] = {
     video: { id: "TEGj-l3uiSE", title: "What are the causes (and effects) of air pollution?",
       think: "Name one pollutant from cars and describe how it harms us." },
     sims: [
+      { title: "Chapter 8 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch8", embed: true,
+        task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." },
       { title: "The Greenhouse Effect", url: "https://phet.colorado.edu/sims/html/greenhouse-effect/latest/greenhouse-effect_en.html", embed: true,
         task: "Increase the amount of greenhouse gases. What happens to the temperature? Link this to burning fossil fuels." }
     ],
@@ -827,6 +837,8 @@ window.COURSES["g1-science"] = {
     video: { id: "wNe6RuK0FfA", title: "Specialized cells: significance and examples (Amoeba Sisters)",
       think: "Why does the body need different types of cells instead of one kind?" },
     sims: [
+      { title: "Chapter 9 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch9", embed: true,
+        task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." },
       { title: "Cell size and scale", url: "https://learn.genetics.utah.edu/content/cells/scale/", embed: false, source: "Learn.Genetics",
         task: "Use the slider to zoom from a coffee bean down to a red blood cell. Roughly how many red blood cells would fit across a grain of salt?" }
     ],
@@ -920,6 +932,8 @@ window.COURSES["g1-science"] = {
     video: { id: "OKcIuxXXPrs", title: "Getting Energy and Nutrients from Food (Science is Khool)",
       think: "Where does most chemical digestion and absorption happen?" },
     sims: [
+      { title: "Chapter 10 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch10", embed: true,
+        task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." },
       { title: "Digestive System Gizmo", url: "https://gizmos.explorelearning.com/find-gizmos/launch-gizmo?resourceId=1050", embed: false, source: "ExploreLearning Gizmos",
         task: "Feed the virtual digestive system different meals. Track where carbohydrates, proteins and fats are broken down, and where nutrients are absorbed. (Log in with your Gizmos account; without one you get 5 minutes a day.)" },
       { title: "The digestive system viewed from topology", url: "https://javalab.org/en/digestive_tract_en/", embed: false,
