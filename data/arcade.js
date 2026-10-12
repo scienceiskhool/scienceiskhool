@@ -16,6 +16,7 @@ window.ARCADE = {
     { title: "Dot & Cross",         icon: "⚛️", url: "https://scienceiskhool.github.io/bonding/dotcross",         blurb: "Draw dot-and-cross diagrams for ionic and covalent compounds." },
     { title: "Ionic Quest",         icon: "🗡️", url: "https://scienceiskhool.github.io/ionicquest/ionicquest.html", blurb: "Write ionic equations: split, cancel spectator ions and balance." },
     { title: "QA Pac-Man",          icon: "👾", url: "https://scienceiskhool.github.io/QA/pacman",               blurb: "Chomp your way through tests for cations, anions and gases." },
+    { title: "Smog Invaders",       icon: "🛸", url: "https://scienceiskhool.github.io/air/smoginvaders",         blurb: "Defend the sky! Blast air pollutants and learn where they come from." },
     { title: "PolymerCraft",        icon: "⛓️", url: "https://scienceiskhool.github.io/polymer/polymercraft",    blurb: "Link monomers into polymers and spot the repeat unit." }
   ]
 };

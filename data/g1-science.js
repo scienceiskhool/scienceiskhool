@@ -737,6 +737,8 @@ window.COURSES["g1-science"] = {
     video: { id: "TEGj-l3uiSE", title: "What are the causes (and effects) of air pollution?",
       think: "Name one pollutant from cars and describe how it harms us." },
     sims: [
+      { title: "Smog Invaders (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/air/smoginvaders", embed: true,
+        task: "As you play, name each **air pollutant**, where it comes from and one way to reduce it." },
       { title: "Chapter 8 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch8", embed: true,
         task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." },
       { title: "The Greenhouse Effect", url: "https://phet.colorado.edu/sims/html/greenhouse-effect/latest/greenhouse-effect_en.html", embed: true,
