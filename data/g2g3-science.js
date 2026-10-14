@@ -536,6 +536,8 @@ window.COURSES["g2g3-science"] = {
     video: { id: "FZtMCxFJYbw", title: "Plant and animal cells (KS3 Science)",
       think: "Name two structures found only in plant cells and state their functions." },
     sims: [
+      { title: "Microscope Master (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/cells/microscope", embed: true,
+        task: "Earn your **pre-lab badge** first. Then list, in order, the steps you used to get a sharp image of the cells." },
       { title: "Cell size and scale", url: "https://learn.genetics.utah.edu/content/cells/scale/", embed: false, source: "Learn.Genetics",
         task: "Zoom from a coffee bean to a skin cell. How many times smaller is a red blood cell than a grain of salt?" }
     ],

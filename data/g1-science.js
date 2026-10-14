@@ -841,6 +841,8 @@ window.COURSES["g1-science"] = {
     video: { id: "wNe6RuK0FfA", title: "Specialized cells: significance and examples (Amoeba Sisters)",
       think: "Why does the body need different types of cells instead of one kind?" },
     sims: [
+      { title: "Microscope Master (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/cells/microscope", embed: true,
+        task: "Earn your **pre-lab badge** first. Then list, in order, the steps you used to get a sharp image of the cells." },
       { title: "Chapter 9 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch9", embed: true,
         task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." },
       { title: "Cell size and scale", url: "https://learn.genetics.utah.edu/content/cells/scale/", embed: false, source: "Learn.Genetics",
