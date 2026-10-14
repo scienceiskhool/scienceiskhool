@@ -653,6 +653,8 @@ window.COURSES["g1-science"] = {
     video: { id: "5BGUT7BjPl0", title: "The Singapore Water Story (PUB)",
       think: "Why does Singapore need four different sources of water instead of just one?" },
     sims: [
+      { title: "River Rescue (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/water/riverrescue", embed: true,
+        task: "As you play, note each **source of water pollution**, its effect on living things and one way to reduce it." },
       { title: "Chapter 7 Crossword (by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/scienceiskhool/games/g1-crossword.html#ch7", embed: true,
         task: "Try to fill in every word **before** you press Check. Each check is counted, so look at your notes only if you are stuck." }
     ],
