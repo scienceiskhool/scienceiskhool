@@ -19,6 +19,7 @@ window.ARCADE = {
     { title: "Microscope Master",   icon: "🔬", url: "https://scienceiskhool.github.io/cells/microscope",         blurb: "Master the microscope! Get your pre-lab badge and practice getting that sharp image of cells!" },
     { title: "River Rescue",        icon: "🐸", url: "https://scienceiskhool.github.io/water/riverrescue",        blurb: "Clean up the river! Stop water pollution and keep its living things safe." },
     { title: "Smog Invaders",       icon: "🛸", url: "https://scienceiskhool.github.io/air/smoginvaders",         blurb: "Defend the sky! Blast air pollutants and learn where they come from." },
+    { title: "Molecule Diner",      icon: "🍽️", url: "https://scienceiskhool.github.io/organic-chem/moleculediner", blurb: "Serve up organic molecules! Build the right compounds and get to know each homologous series." },
     { title: "PolymerCraft",        icon: "⛓️", url: "https://scienceiskhool.github.io/polymer/polymercraft",    blurb: "Link monomers into polymers and spot the repeat unit." }
   ]
 };

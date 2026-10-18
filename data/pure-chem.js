@@ -1027,6 +1027,8 @@ window.COURSES["pure-chem"] = {
     video: { id: "1ZUg6ZC3ltA", title: "GCSE Chemistry: Addition polymers & polymerisation",
       think: "Draw the repeating unit of the polymer made from propene." },
     sims: [
+      { title: "Molecule Diner (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/organic-chem/moleculediner", embed: true,
+        task: "For each order, name the **homologous series** and check the general formula before you serve it." },
       { title: "PolymerCraft (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/polymer/polymercraft", embed: true,
         task: "For each polymer, identify the **monomer** and the repeat unit." },
       { title: "Alkane Compound", url: "https://javalab.org/en/alkane_compound_en/", embed: false, task: "Build butane and one of its isomers." },

@@ -465,8 +465,6 @@ window.COURSES["combined-chem"] = {
     sims: [
       { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
         task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
-      { title: "Salt Preparation (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/saltprep/saltprep", embed: true,
-        task: "Before choosing a method, ask: is the salt **soluble**? Is it a sodium, potassium or ammonium salt?" },
       { title: "Solubility of Salts (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/solubility/solubility", embed: true,
         task: "Aim to sort every salt correctly. Afterwards, write the solubility rules from memory." },
       { title: "pH Scale", url: "https://phet.colorado.edu/sims/html/ph-scale/latest/ph-scale_en.html", embed: true,
@@ -1006,6 +1004,8 @@ window.COURSES["combined-chem"] = {
     video: { id: "CjmriZq5xRo", title: "GCSE Chemistry: Crude oil and fractional distillation",
       think: "Why do the smallest molecules collect at the top of the fractionating column?" },
     sims: [
+      { title: "Molecule Diner (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/organic-chem/moleculediner", embed: true,
+        task: "For each order, name the **homologous series** and check the general formula before you serve it." },
       { title: "PolymerCraft (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/polymer/polymercraft", embed: true,
         task: "For each polymer, identify the **monomer** and the repeat unit." },
       { title: "Alkane Compound", url: "https://javalab.org/en/alkane_compound_en/", embed: false,
