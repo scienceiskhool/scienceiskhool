@@ -856,7 +856,10 @@ window.COURSES["pure-chem"] = {
     ],
     video: { id: "hNNvIsQLSV8", title: "Exothermic & endothermic reactions — reaction profiles",
       think: "On an energy profile, where would you label the activation energy?" },
-    sims: [],
+    sims: [
+      { title: "Thermo Quest (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/energetics/energetics", embed: true,
+        task: "Choose **Pure Chemistry**. On each energy hill, label E~a~ (reactants to the top of the hump) and ΔH (reactants to products) before you check." }
+    ],
     quiz: [
       { q: "A reaction has ΔH = −90 kJ/mol. It is…",
         options: ["exothermic", "endothermic", "neither", "impossible"],

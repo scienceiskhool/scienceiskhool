@@ -20,6 +20,7 @@ window.ARCADE = {
     { title: "River Rescue",        icon: "🐸", url: "https://scienceiskhool.github.io/water/riverrescue",        blurb: "Clean up the river! Stop water pollution and keep its living things safe." },
     { title: "Smog Invaders",       icon: "🛸", url: "https://scienceiskhool.github.io/air/smoginvaders",         blurb: "Defend the sky! Blast air pollutants and learn where they come from." },
     { title: "Molecule Diner",      icon: "🍽️", url: "https://scienceiskhool.github.io/organic-chem/moleculediner", blurb: "Serve up organic molecules! Build the right compounds and get to know each homologous series." },
-    { title: "PolymerCraft",        icon: "⛓️", url: "https://scienceiskhool.github.io/polymer/polymercraft",    blurb: "Link monomers into polymers and spot the repeat unit." }
+    { title: "PolymerCraft",        icon: "⛓️", url: "https://scienceiskhool.github.io/polymer/polymercraft",    blurb: "Link monomers into polymers and spot the repeat unit." },
+    { title: "Thermo Quest",        icon: "🌡️", url: "https://scienceiskhool.github.io/energetics/energetics", blurb: "Hot or cold? Sort exothermic and endothermic reactions, climb energy hills and defeat Dr. Freezeburn!" }
   ]
 };

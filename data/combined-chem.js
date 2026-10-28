@@ -830,7 +830,10 @@ window.COURSES["combined-chem"] = {
     ],
     video: { id: "dstRL5xB0Sk", title: "GCSE Chemistry: Exothermic and endothermic reactions",
       think: "Is melting ice exothermic or endothermic? Explain using energy." },
-    sims: [],
+    sims: [
+      { title: "Thermo Quest (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/energetics/energetics", embed: true,
+        task: "Choose **Combined Science**. Before you steer each block, ask: is heat **given out** (temperature rises) or **taken in** (temperature falls)?" }
+    ],
     quiz: [
       { q: "During a reaction, the temperature of the solution rises from 28 °C to 35 °C. The reaction is…",
         options: ["exothermic", "endothermic", "neither", "a physical change only"],
