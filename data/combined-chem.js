@@ -566,6 +566,8 @@ window.COURSES["combined-chem"] = {
     video: { id: "2GaCalUoJZ4", title: "Identify cations using aqueous sodium hydroxide | Qualitative analysis",
       think: "Which two cations give a white precipitate that dissolves in excess NaOH?" },
     sims: [
+      { title: "Gotta Test 'Em All! (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/QA/testemall", embed: true,
+        task: "Before each test, predict whether it will be **super effective**. Afterwards, check your Lab-dex and note any ions you mixed up." },
       { title: "QA Pac-Man (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/QA/pacman", embed: true,
         task: "Before you move, recall the **test and observation** for each ion or gas. Afterwards, list the ones you got wrong and revise them." },
       { title: "Solubility of Salts (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/solubility/solubility", embed: true,
@@ -754,6 +756,8 @@ window.COURSES["combined-chem"] = {
     video: { id: "TGZs93DzMDY", title: "GCSE Chemistry: Group 1 — the alkali metals",
       think: "Explain why potassium is more reactive than sodium, using electron shells." },
     sims: [
+      { title: "Periodic Panic (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/periodic/periodicpanic", embed: true,
+        task: "Choose **Combined Science**. Beat all four bosses: periodic trends, Group 1, Group 17 and Group 18. Can you collect all four stolen powers?" },
       { title: "Activity Series of Metals", url: "https://javalab.org/en/activity_series_of_metals_en/", embed: false,
         task: "Test each metal in each salt solution. Use the results to rank the metals from most to least reactive." },
       { title: "Build an Atom (periodic table view)", url: "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_en.html", embed: true,

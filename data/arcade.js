@@ -15,12 +15,14 @@ window.ARCADE = {
     { title: "Write the Formula",   icon: "✏️", url: "https://scienceiskhool.github.io/formula/writeformula",     blurb: "Write chemical formulae from names, one compound at a time." },
     { title: "Dot & Cross",         icon: "⚛️", url: "https://scienceiskhool.github.io/bonding/dotcross",         blurb: "Draw dot-and-cross diagrams for ionic and covalent compounds." },
     { title: "Ionic Quest",         icon: "🗡️", url: "https://scienceiskhool.github.io/ionicquest/ionicquest.html", blurb: "Write ionic equations: split, cancel spectator ions and balance." },
+    { title: "Gotta Test 'Em All!", icon: "⚗️", url: "https://scienceiskhool.github.io/QA/testemall", blurb: "Battle unlabelled bottles with reagents, name their ions to fill your Lab-dex, then defeat Dr. Mal Practice!" },
     { title: "QA Pac-Man",          icon: "👾", url: "https://scienceiskhool.github.io/QA/pacman",               blurb: "Chomp your way through tests for cations, anions and gases." },
     { title: "Microscope Master",   icon: "🔬", url: "https://scienceiskhool.github.io/cells/microscope",         blurb: "Master the microscope! Get your pre-lab badge and practice getting that sharp image of cells!" },
     { title: "River Rescue",        icon: "🐸", url: "https://scienceiskhool.github.io/water/riverrescue",        blurb: "Clean up the river! Stop water pollution and keep its living things safe." },
     { title: "Smog Invaders",       icon: "🛸", url: "https://scienceiskhool.github.io/air/smoginvaders",         blurb: "Defend the sky! Blast air pollutants and learn where they come from." },
     { title: "Molecule Diner",      icon: "🍽️", url: "https://scienceiskhool.github.io/organic-chem/moleculediner", blurb: "Serve up organic molecules! Build the right compounds and get to know each homologous series." },
     { title: "PolymerCraft",        icon: "⛓️", url: "https://scienceiskhool.github.io/polymer/polymercraft",    blurb: "Link monomers into polymers and spot the repeat unit." },
-    { title: "Thermo Quest",        icon: "🌡️", url: "https://scienceiskhool.github.io/energetics/energetics", blurb: "Hot or cold? Sort exothermic and endothermic reactions, climb energy hills and defeat Dr. Freezeburn!" }
+    { title: "Thermo Quest",        icon: "🌡️", url: "https://scienceiskhool.github.io/energetics/energetics", blurb: "Hot or cold? Sort exothermic and endothermic reactions, climb energy hills and defeat Dr. Freezeburn!" },
+    { title: "Periodic Panic",      icon: "🧪", url: "https://scienceiskhool.github.io/periodic/periodicpanic", blurb: "Four bosses have taken over the Periodic Table! Snake, blast, fight and float your way through Groups 1, 17 and 18, and steal their powers." }
   ]
 };
