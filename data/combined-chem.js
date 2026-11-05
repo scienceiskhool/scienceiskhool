@@ -364,6 +364,8 @@ window.COURSES["combined-chem"] = {
     sims: [
       { title: "Mole Mayhem (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/molemayhem/molemayhem", embed: true,
         task: "Write down the formula you use for each question (n = m ÷ M, n = V ÷ 24 dm^3^ for gases, or n = c × V) before you answer." },
+      { title: "Titration Lab (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/titration/titration", embed: true,
+        task: "Earn your **pre-lab badge** first (Combined Sci). Then write out your calculation: moles of acid → mole ratio → concentration of NaOH." },
       { title: "Write the Formula (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/writeformula", embed: true,
         task: "Work out the charge or valency of each part first, then write the formula." },
       { title: "Ionic Formula Puzzle Bubble (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/formula/puzzlebubble", embed: true,

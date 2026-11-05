@@ -493,6 +493,8 @@ window.COURSES["pure-chem"] = {
     video: { id: "PbOxh1gHxy4", title: "Acids and Bases (Science is Khool)",
       think: "Which ion is present in a higher concentration in a solution of pH 2 than in pH 6?" },
     sims: [
+      { title: "Titration Lab (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/titration/titration", embed: true,
+        task: "Earn your **pre-lab badge** first (Pure Chem). For each titration curve, note where the steep part is and which indicator changes colour inside it." },
       { title: "Acid Factory (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/acidsbases/acidfactory", embed: true,
         task: "Play the game. Before each reaction, **predict** what will be made, then check if you were right." },
       { title: "Salt Preparation (game by Ms Khoo)", source: "Game", url: "https://scienceiskhool.github.io/saltprep/saltprep", embed: true,

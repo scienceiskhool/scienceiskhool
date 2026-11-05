@@ -8,6 +8,7 @@ window.ARCADE = {
   games: [
     { title: "Acid Factory",        icon: "🏭", url: "https://scienceiskhool.github.io/acidsbases/acidfactory",   blurb: "Run the factory: react acids with metals, bases and carbonates and make the right products." },
     { title: "Mole Mayhem",         icon: "🐹", url: "https://scienceiskhool.github.io/molemayhem/molemayhem",    blurb: "Fast-paced mole calculations. Mass, gas volume and concentration." },
+    { title: "Titration Lab",       icon: "🧫", url: "https://scienceiskhool.github.io/titration/titration",        blurb: "Rinse, pipette and titrate to the end-point! Earn your pre-lab badge, then race the clock to find a mystery concentration." },
     { title: "Rate of Reaction",    icon: "⏱️", url: "https://scienceiskhool.github.io/rate/rate",               blurb: "Change temperature, concentration, surface area and catalysts. What speeds a reaction up?" },
     { title: "Salt Preparation",    icon: "🧂", url: "https://scienceiskhool.github.io/saltprep/saltprep",       blurb: "Choose the right method to prepare each salt." },
     { title: "Solubility of Salts", icon: "💧", url: "https://scienceiskhool.github.io/solubility/solubility",   blurb: "Soluble or insoluble? Master the solubility rules." },
