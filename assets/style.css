@@ -336,3 +336,6 @@ body.no-scroll { overflow: hidden; }
 .player iframe { flex: 1; width: 100%; border: 0; background: #fff; }
 @media (prefers-reduced-motion: reduce) { .blink, .cab-press { animation: none; } .cab:hover { transform: none; } }
 @media (max-width: 520px) { .player-bar > .px { font-size: .55rem; } .ab-go { display: none; } }
+
+/* ---------- extra link cards on the home page (e.g. calculator) ---------- */
+.tool-card .tool-note { margin-top: auto; padding-top: 8px; font-weight: 700; }

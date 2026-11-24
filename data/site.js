@@ -38,6 +38,18 @@ window.SITE = {
       courses: [
         { id: "combined-chem", ready: true },
         { id: "pure-chem", ready: true }
+      ],
+      /* Extra link cards shown after the courses in this row.
+         colour: teal, orange, yellow or pink. */
+      links: [
+        {
+          tag: "Tool",
+          title: "Forgot your calculator?",
+          text: "Tap here for an online scientific calculator with the same buttons as the fx-97SG X, fx-97SG CW or HP 10s+.",
+          note: "Opens in a new tab ↗",
+          url: "https://scienceiskhool.github.io/calculator/",
+          colour: "teal"
+        }
       ]
     }
   ]

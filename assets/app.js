@@ -84,6 +84,13 @@
             "</div>";
         }
       });
+      (level.links || []).forEach(function (l) {
+        var col = COLOURS.indexOf(l.colour) !== -1 ? l.colour : "teal";
+        html += '<a class="sticker tool-card c-' + col + '" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
+          '<span class="tag">' + esc(l.tag || "") + "</span>" +
+          "<h3>" + esc(l.title || "") + "</h3><p>" + esc(l.text || "") + "</p>" +
+          (l.note ? '<span class="small tool-note">' + esc(l.note) + "</span>" : "") + "</a>";
+      });
       html += "</div></section>";
     });
     if (window.ARCADE && ARCADE.games.length) {
