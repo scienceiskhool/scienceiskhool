@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floating Class Timer</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#FF8243;--pink:#FFC0CB;--yellow:#FCE883;--teal:#069494;--ink:#111;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Open Sans",system-ui,sans-serif;background:#fff;color:var(--ink);
+       -webkit-tap-highlight-color:transparent}
+  main{max-width:820px;margin:0 auto;padding:24px 18px 40px}
+  h1{font-weight:800;font-size:clamp(26px,5vw,38px);margin:0 0 4px}
+  h1 span{background:var(--yellow);border:3px solid var(--ink);border-radius:12px;padding:0 10px;box-shadow:3px 3px 0 var(--ink)}
+  .sub{margin:12px 0 22px;font-size:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
+  button{font-family:inherit;font-weight:800;cursor:pointer;border:3px solid var(--ink);border-radius:16px;
+         box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+  button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+  .dur{background:var(--pink);font-size:28px;padding:18px 6px}
+  .dur small{display:block;font-size:13px;font-weight:700}
+  .dur.sel{background:var(--teal);color:#fff}
+  .stage{margin-top:24px;border:3px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--ink);
+         padding:16px;background:#fff;display:none}
+  .stage.on{display:block}
+  video{width:100%;border-radius:10px;display:block;background:var(--teal)}
+  .row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+  .go{background:var(--orange);font-size:22px;padding:14px 20px;flex:1 1 260px}
+  .alt{background:var(--yellow);font-size:17px;padding:12px 16px;flex:0 1 auto}
+  .msg{margin-top:12px;font-weight:700;min-height:1.4em}
+  details{margin-top:26px;border:3px solid var(--ink);border-radius:14px;padding:12px 16px;background:#fff8e0}
+  summary{font-weight:800;cursor:pointer}
+  ol{padding-left:20px;line-height:1.55}
+</style>
+</head>
+<body>
+<main>
+  <h1><span>⏱ Floating Class Timer</span></h1>
+  <p class="sub">Pick a time, then tap <b>Start &amp; float</b>. The timer pops out over PowerPoint or Notability.</p>
+
+  <div class="grid" id="grid"></div>
+
+  <section class="stage" id="stage">
+    <video id="v" playsinline webkit-playsinline preload="auto" controls></video>
+    <div class="row">
+      <button class="go" id="go">▶ Start &amp; float</button>
+      <button class="alt" id="restart">↺ Restart</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </section>
+
+  <details>
+    <summary>How to use it in class</summary>
+    <ol>
+      <li>Open this page in <b>Safari</b> (not as a Home Screen icon, because floating doesn't work there).</li>
+      <li>In Control Centre, set AirPlay to <b>Screen Mirroring</b> so students can see the timer on the projector.</li>
+      <li>Pick a time and tap <b>Start &amp; float</b>, then swipe up or switch to PowerPoint or Notability. The timer stays on top.</li>
+      <li>Drag the timer to any corner. Pinch to resize it. Tap it once for pause and close controls.</li>
+      <li>Turn the iPad volume up so the chime can be heard at the end.</li>
+    </ol>
+  </details>
+</main>
+
+<script>
+const TIMES = [
+  {f:"0m30", label:"0:30", sub:"30 sec"},
+  {f:"1m",   label:"1",    sub:"min"},
+  {f:"2m",   label:"2",    sub:"min"},
+  {f:"5m",   label:"5",    sub:"min"},
+  {f:"7m",   label:"7",    sub:"min"},
+  {f:"10m",  label:"10",   sub:"min"},
+  {f:"15m",  label:"15",   sub:"min"},
+];
+const grid = document.getElementById('grid'), v = document.getElementById('v'),
+      stage = document.getElementById('stage'), msg = document.getElementById('msg');
+
+TIMES.forEach(t => {
+  const b = document.createElement('button');
+  b.className = 'dur';
+  b.innerHTML = `${t.label}<small>${t.sub}</small>`;
+  b.onclick = () => {
+    document.querySelectorAll('.dur').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel');
+    if (isFloating()) exitFloat();
+    v.src = 'videos/' + t.f + '.mp4';
+    v.load();
+    stage.classList.add('on');
+    msg.textContent = 'Ready: ' + t.label + ' ' + t.sub + '. Tap Start & float.';
+    stage.scrollIntoView({behavior:'smooth', block:'nearest'});
+  };
+  grid.appendChild(b);
+});
+
+function isFloating(){
+  return document.pictureInPictureElement === v || v.webkitPresentationMode === 'picture-in-picture';
+}
+function exitFloat(){
+  try {
+    if (document.pictureInPictureElement) document.exitPictureInPicture();
+    else if (v.webkitSetPresentationMode) v.webkitSetPresentationMode('inline');
+  } catch(e){}
+}
+function enterFloat(){
+  // Must run inside the tap. Safari on iPad supports both APIs; the webkit one is the most reliable.
+  if (v.webkitSupportsPresentationMode && v.webkitSupportsPresentationMode('picture-in-picture')) {
+    v.webkitSetPresentationMode('picture-in-picture'); return true;
+  }
+  if (document.pictureInPictureEnabled && v.requestPictureInPicture) {
+    v.requestPictureInPicture().catch(()=>{ msg.textContent = 'Could not float. Tap the ⧉ button on the video instead.'; });
+    return true;
+  }
+  return false;
+}
+
+document.getElementById('go').onclick = () => {
+  if (!v.src) return;
+  if (v.ended) v.currentTime = 0;
+  v.muted = false;
+  const p = v.play();
+  const ok = enterFloat();
+  if (p && p.catch) p.catch(()=>{ msg.textContent = 'Tap the play button on the video, then the ⧉ float button.'; });
+  msg.textContent = ok ? 'Floating! Switch to PowerPoint or Notability now.'
+                       : 'Floating is not supported in this browser. Please open the page in Safari on your iPad.';
+};
+document.getElementById('restart').onclick = () => {
+  if (!v.src) return;
+  v.pause(); v.currentTime = 0;
+  msg.textContent = 'Reset. Tap Start & float when ready.';
+};
+v.addEventListener('ended', () => { msg.textContent = "Time's up! Pick another time or tap Restart."; });
+</script>
+</body>
+</html>
