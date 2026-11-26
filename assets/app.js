@@ -86,10 +86,11 @@
       });
       (level.links || []).forEach(function (l) {
         var col = COLOURS.indexOf(l.colour) !== -1 ? l.colour : "teal";
-        html += '<a class="sticker tool-card c-' + col + '" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
+        html += '<a class="sticker tool-card c-' + col + (l.image ? ' has-img' : '') + '" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
           '<span class="tag">' + esc(l.tag || "") + "</span>" +
           "<h3>" + esc(l.title || "") + "</h3><p>" + esc(l.text || "") + "</p>" +
-          (l.note ? '<span class="small tool-note">' + esc(l.note) + "</span>" : "") + "</a>";
+          (l.note ? '<span class="small tool-note">' + esc(l.note) + "</span>" : "") +
+          (l.image ? '<img class="tool-img" src="' + esc(l.image) + '" alt="">' : "") + "</a>";
       });
       html += "</div></section>";
     });

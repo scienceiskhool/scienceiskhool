@@ -45,8 +45,8 @@ window.SITE = {
         {
           tag: "Tool",
           title: "Forgot your calculator?",
-          text: "Tap here for an online scientific calculator with the same buttons as the fx-97SG X, fx-97SG CW or HP 10s+.",
-          note: "Opens in a new tab ↗",
+          text: "Tap here for an online scientific calculator",
+          image: "assets/img/calculator.png",
           url: "https://scienceiskhool.github.io/calculator/",
           colour: "teal"
         }

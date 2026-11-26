@@ -339,3 +339,7 @@ body.no-scroll { overflow: hidden; }
 
 /* ---------- extra link cards on the home page (e.g. calculator) ---------- */
 .tool-card .tool-note { margin-top: auto; padding-top: 8px; font-weight: 700; }
+.tool-card.has-img { position: relative; overflow: hidden; padding-right: 128px; min-height: 170px; }
+.tool-card .tool-img { position: absolute; right: 22px; top: 22px; width: 92px; height: auto; transform: rotate(8deg); filter: drop-shadow(3px 4px 0 rgba(31,42,46,.55)); transition: transform .15s; pointer-events: none; }
+a.tool-card.has-img:hover .tool-img { transform: rotate(4deg) translateY(-4px); }
+@media (prefers-reduced-motion: reduce) { .tool-card .tool-img, a.tool-card.has-img:hover .tool-img { transition: none; transform: rotate(8deg); } }
