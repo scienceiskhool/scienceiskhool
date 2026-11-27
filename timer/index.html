@@ -28,11 +28,12 @@
   .d{font-size:clamp(64px,13vw,120px);font-weight:800;line-height:1;color:#fff;-webkit-text-stroke:3px var(--ink);
      paint-order:stroke fill;font-variant-numeric:tabular-nums;width:.68em;text-align:center}
   .colon{font-size:clamp(64px,13vw,120px);font-weight:800;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;line-height:1;padding:0 2px}
-  .pm{width:52px;height:44px;font-size:24px;padding:0;margin:4px 0;box-shadow:2px 2px 0 var(--ink)}
-  .side{display:flex;flex-direction:column;gap:12px}
-  .play{width:76px;height:76px;border-radius:50%;background:var(--orange);font-size:30px}
-  .stop{width:76px;height:56px;font-size:22px;background:var(--pink)}
-  .float{width:76px;height:44px;font-size:15px;background:var(--yellow)}
+  .pm{width:56px;height:44px;font-size:34px;line-height:1;padding:0;margin:2px 0;background:none;border:0;box-shadow:none;border-radius:10px;
+       color:#fff;-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill;opacity:.9}
+  .pm:active{transform:scale(.85);box-shadow:none;background:rgba(255,255,255,.18)}
+  .pm:focus-visible{outline:3px solid #fff}
+  .clock{flex-direction:column}
+  .go{background:var(--orange);font-size:22px;padding:14px 34px;border-radius:16px;box-shadow:4px 4px 0 var(--ink)}
 
   .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;justify-content:center}
   .chip{padding:10px 14px;font-size:17px;background:var(--pink)}
@@ -65,18 +66,14 @@
         <button class="pm" data-d="-600">−</button><button class="pm" data-d="-60">−</button><span></span>
         <button class="pm" data-d="-10">−</button><button class="pm" data-d="-1">−</button>
       </div>
-      <div class="side">
-        <button class="play" id="play" aria-label="Start and float">▶</button>
-        <button class="stop" id="stop" aria-label="Stop and reset">■</button>
-        <button class="float" id="float" aria-label="Float the timer">⧉ Float</button>
-      </div>
+      <button class="go" id="play">▶ Start &amp; float</button>
     </div>
 
     <p class="label">Quick set</p>
     <div class="row" id="presets"></div>
     <p class="label">Need more or less time? (works while it's running)</p>
     <div class="row" id="adjusts"></div>
-    <p class="msg" id="msg">Set a time, then tap ▶ to start and float.</p>
+    <p class="msg" id="msg">Set a time, then tap Start &amp; float.</p>
   </section>
 
   <section class="card bar">
@@ -88,11 +85,11 @@
     <summary>How to use it in class</summary>
     <ol>
       <li>Open this page in <b>Safari</b> (not as a Home Screen icon) and set AirPlay to <b>Screen Mirroring</b>.</li>
-      <li>Choose music on or off <b>before</b> you start. Switching it while the timer floats may close the floating window. If that happens, tap <b>⧉ Float</b>.</li>
-      <li>Set the time and tap <b>▶</b>. Then switch to PowerPoint or Notability. The timer stays on top.</li>
+      <li>Choose music on or off <b>before</b> you start. Switching it while the timer floats may close the floating window. If that happens, tap <b>Start &amp; float</b> again.</li>
+      <li>Set the time and tap <b>Start &amp; float</b>. Then switch to PowerPoint or Notability. The timer stays on top.</li>
       <li>To change the time, come back to Safari and tap <b>+</b>/<b>−</b> or a quick button. The floating timer jumps straight away.</li>
       <li>The timer turns red for the last 10 seconds. The music changes for the last 41 seconds, and a chime plays at the end.</li>
-      <li><b>■</b> stops and resets to the time you set. Drag the floating timer anywhere and pinch to resize it.</li>
+      <li>To pause, tap the floating timer once and use its pause button. Drag it anywhere and pinch to resize it.</li>
     </ol>
   </details>
 </main>
@@ -137,8 +134,6 @@
     for (let i = 0; i < 4; i++) document.getElementById("d" + i).textContent = str[i];
     digits.classList.toggle("warn", R > 0 && R <= 10);
     digits.classList.toggle("done", R === 0);
-    playBtn.textContent = v.paused ? "▶" : "❚❚";
-    playBtn.setAttribute("aria-label", v.paused ? "Start and float" : "Pause");
   }
 
   function adjust(delta) {
@@ -154,7 +149,7 @@
     ensureLoaded();
     setR = R;
     seekTo(R);
-    if (!midRun) msg.textContent = "Set. Tap ▶ to start and float.";
+    if (!midRun) msg.textContent = "Set. Tap Start & float.";
     render();
   }
 
@@ -180,26 +175,16 @@
 
   playBtn.onclick = () => {
     ensureLoaded();
-    if (!v.paused) { v.pause(); msg.textContent = "Paused. Tap ▶ to carry on."; render(); return; }
     if (remaining() === 0) seekTo(setR);
     v.muted = false;
     midRun = true;
-    const p = v.play();
-    if (p && p.catch) p.catch(() => { msg.textContent = "Tap ▶ again to start."; });
-    if (!isFloating()) enterFloat();
+    if (v.paused) {
+      const p = v.play();
+      if (p && p.catch) p.catch(() => { msg.textContent = "Tap Start & float again."; });
+    }
+    if (!isFloating() && !enterFloat()) { msg.textContent = "Floating isn't supported here. Please open this page in Safari on your iPad."; render(); return; }
     msg.textContent = "Running! Switch to PowerPoint or Notability.";
     render();
-  };
-  document.getElementById("stop").onclick = () => {
-    v.pause();
-    midRun = false;
-    seekTo(setR);
-    msg.textContent = "Reset. Tap ▶ to start again.";
-    render();
-  };
-  document.getElementById("float").onclick = () => {
-    ensureLoaded();
-    if (!enterFloat()) msg.textContent = "Floating isn't supported here. Please open this page in Safari on your iPad.";
   };
 
   // Music on/off: swap to the matching video at the same moment
@@ -229,12 +214,12 @@
   showMusic();
 
   v.addEventListener("loadedmetadata", () => { if (!swapping) seekTo(pendingR); render(); });
-  v.addEventListener("ended", () => { msg.textContent = "Time's up! Tap + to add time, or ■ to reset."; render(); });
+  v.addEventListener("ended", () => { msg.textContent = "Time's up! Tap + to add time, or pick a new time and tap Start & float."; render(); });
   v.addEventListener("pause", render);
   v.addEventListener("play", render);
-  v.addEventListener("leavepictureinpicture", () => { if (midRun) msg.textContent = "Floating window closed. Tap ⧉ Float to bring it back."; });
+  v.addEventListener("leavepictureinpicture", () => { if (midRun) msg.textContent = "Floating window closed. Tap Start & float to bring it back."; });
   v.addEventListener("webkitpresentationmodechanged", () => {
-    if (v.webkitPresentationMode === "inline" && midRun) msg.textContent = "Floating window closed. Tap ⧉ Float to bring it back.";
+    if (v.webkitPresentationMode === "inline" && midRun) msg.textContent = "Floating window closed. Tap Start & float to bring it back.";
   });
 
   setInterval(render, 250);
